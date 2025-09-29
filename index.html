@@ -163,13 +163,38 @@
             width: 100%;
         }
         
-        /* Hero Section */
+        /* Hero Section với Background Ảnh */
         .hero-section {
             position: relative;
-            background: var(--gradient-1);
             color: white;
             padding: 150px 0 100px;
             overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .hero-bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
         }
         
         .hero-section:before {
@@ -182,6 +207,7 @@
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,192C672,181,768,139,864,138.7C960,139,1056,181,1152,181.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
             background-size: cover;
             background-position: center bottom;
+            z-index: -1;
         }
         
         .profile-img {
@@ -211,6 +237,7 @@
             color: white;
             font-size: 1.5rem;
             animation: bounce 2s infinite;
+            z-index: 1;
         }
         
         @keyframes bounce {
@@ -365,16 +392,18 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: var(--gradient-1);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             transition: all 0.3s ease;
             margin: 0 10px 10px 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
         }
         
         .social-icon:hover {
             transform: translateY(-5px) scale(1.1);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.3);
         }
         
         /* Footer */
@@ -430,6 +459,7 @@
             .hero-section {
                 padding: 120px 0 80px;
                 text-align: center;
+                min-height: 80vh;
             }
             
             .profile-img {
@@ -446,6 +476,10 @@
                 right: 20px;
                 width: 45px;
                 height: 45px;
+            }
+            
+            .hero-bg {
+                background-attachment: scroll;
             }
         }
         
@@ -503,17 +537,19 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section với Background Ảnh -->
     <section id="home" class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="hero-bg-overlay"></div>
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-4 text-center mb-4 mb-md-0" data-aos="fade-right" data-aos-duration="1000">
-                    <img src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/anh-nu-cute-55.jpg" alt="Bùi Thanh Vân" class="profile-img rounded-circle">
+                    <img src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/anh-nu-cute-55.jpg" alt="Lê Quốc Thái" class="profile-img rounded-circle">
                 </div>
                 <div class="col-md-8 hero-content" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                     <h1 class="display-4 fw-bold">Lê Quốc Thái</h1>
                     <p class="lead">Nhân viên công nghệ thông tin tại bệnh viện</p>
-                    <p class="mb-4">Chia sẻ kiến thức cuộc sống bên lề công việc chính là kiểm tra hồ sơ xml</p>
+                    <p class="mb-4">Chia sẻ kiến thức cuộc sống bên lề công việc chính là kiểm tra hồ sơ XML</p>
                     <div class="social-links">
                         <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
@@ -533,10 +569,10 @@
             <h2 class="section-title" data-aos="fade-up">Giới Thiệu Bản Thân</h2>
             <div class="row">
                 <div class="col-lg-8" data-aos="fade-right" data-aos-delay="200">
-                    <p>Xin chào! Tôi là một lập trình viên với hơn 5 năm kinh nghiệm trong lĩnh vực phát triển web và ứng dụng. Tôi đam mê tạo ra những sản phẩm công nghệ có giá trị và mang lại trải nghiệm tốt nhất cho người dùng.</p>
-                    <p>Trong blog này, tôi chia sẻ những kiến thức, kinh nghiệm và quan điểm cá nhân về công nghệ, lập trình và cuộc sống. Tôi tin rằng việc chia sẻ kiến thức là cách tốt nhất để cùng nhau phát triển.</p>
+                    <p>Xin chào! Tôi là Lê Quốc Thái, một nhân viên công nghệ thông tin tại bệnh viện với niềm đam mê công nghệ và cuộc sống. Công việc chính của tôi là kiểm tra và xử lý hồ sơ XML, nhưng ngoài giờ làm việc, tôi thích khám phá những điều thú vị trong cuộc sống.</p>
+                    <p>Trong blog này, tôi chia sẻ những trải nghiệm, góc nhìn và những câu chuyện thú vị về cuộc sống, công việc và những đam mê cá nhân. Tôi tin rằng mỗi ngày đều là một cơ hội để học hỏi và trưởng thành.</p>
                     
-                    <h5 class="mt-5 mb-3">Kỹ năng chuyên môn:</h5>
+                    <h5 class="mt-5 mb-3">Kỹ năng đặc biệt:</h5>
                     <div class="skill-bar">
                         <div class="skill-name">
                             <span>Xàm</span>
@@ -609,6 +645,70 @@
             </div>
         </div>
     </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section blog-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Bài Viết Mới Nhất</h2>
+            <div class="row">
+                <!-- Blog Post 1 -->
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card blog-card">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top blog-card-img" alt="Công việc IT tại bệnh viện">
+                        <div class="card-body p-4">
+                            <span class="blog-date">15 tháng 7, 2025</span>
+                            <div class="mt-2 mb-3">
+                                <span class="blog-tag">Công việc</span>
+                                <span class="blog-tag">IT</span>
+                            </div>
+                            <h5 class="card-title">Một ngày làm việc của IT bệnh viện</h5>
+                            <p class="card-text">Chia sẻ về công việc thú vị của một nhân viên IT trong môi trường y tế và những thách thức đặc biệt.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 2 -->
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card blog-card">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top blog-card-img" alt="Kiểm tra XML">
+                        <div class="card-body p-4">
+                            <span class="blog-date">10 tháng 7, 2025</span>
+                            <div class="mt-2 mb-3">
+                                <span class="blog-tag">XML</span>
+                                <span class="blog-tag">Công nghệ</span>
+                            </div>
+                            <h5 class="card-title">Bí kíp kiểm tra hồ sơ XML hiệu quả</h5>
+                            <p class="card-text">Những mẹo và công cụ hữu ích giúp việc kiểm tra và xử lý hồ sơ XML trở nên dễ dàng hơn.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 3 -->
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card blog-card">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top blog-card-img" alt="Cuộc sống Đồng Tháp">
+                        <div class="card-body p-4">
+                            <span class="blog-date">5 tháng 7, 2025</span>
+                            <div class="mt-2 mb-3">
+                                <span class="blog-tag">Đồng Tháp</span>
+                                <span class="blog-tag">Cuộc sống</span>
+                            </div>
+                            <h5 class="card-title">Khám phá vẻ đẹp bình dị của Đồng Tháp</h5>
+                            <p class="card-text">Những góc nhìn thú vị về cuộc sống và con người tại vùng đất Đồng Tháp quê hương tôi.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="800">
+                <a href="#" class="btn btn-primary">Xem tất cả bài viết</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="section contact-section">
         <div class="container">
@@ -650,9 +750,8 @@
                 <div class="col-md-6 text-md-end">
                     <div class="footer-links">
                         <a href="#" class="me-3"><i class="fab fa-facebook-f me-1"></i> Facebook</a>
-                        <a href="#" class="me-3"><i class="fab fa-twitter me-1"></i> Twitter</a>
-                        <a href="#" class="me-3"><i class="fab fa-linkedin-in me-1"></i> LinkedIn</a>
-                        <a href="#"><i class="fab fa-github me-1"></i> GitHub</a>
+                        <a href="#" class="me-3"><i class="fab fa-youtube me-1"></i> YouTube</a>
+                        <a href="#" class="me-3"><i class="fab fa-instagram me-1"></i> Instagram</a>
                     </div>
                 </div>
             </div>
