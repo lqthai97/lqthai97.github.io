@@ -1,87 +1,322 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[Tên của bạn] - Personal Brand</title>
-  <meta name="description" content="Trang portfolio cá nhân để xây dựng thương hiệu và giới thiệu năng lực.">
-  <meta name="keywords" content="portfolio, personal brand, resume, freelancer">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-
-  <!-- Fonts & CSS -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/css/main.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Cá Nhân</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
+            color: white;
+            padding: 100px 0;
+        }
+        
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .blog-card {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .blog-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            margin: 0 10px 10px 0;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .contact-form .form-control {
+            border-radius: 0;
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
+        }
+        
+        .contact-form .form-control:focus {
+            box-shadow: none;
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 0;
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0;
+                text-align: center;
+            }
+            
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
 </head>
-
-<body class="index-page">
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header dark-background d-flex flex-column">
-    <div class="profile-img">
-      <img src="assets/img/profile.jpg" alt="Ảnh đại diện" class="img-fluid rounded-circle">
-    </div>
-    <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-      <h1 class="sitename">[Tên của bạn]</h1>
-    </a>
-    <div class="social-links text-center">
-      <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-      <a href="#" class="github"><i class="bi bi-github"></i></a>
-      <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-    </div>
-    <nav id="navmenu" class="navmenu">
-      <ul>
-        <li><a href="#hero" class="active"><i class="bi bi-house"></i> Home</a></li>
-        <li><a href="#about"><i class="bi bi-person"></i> About</a></li>
-        <li><a href="#resume"><i class="bi bi-file-earmark-text"></i> Resume</a></li>
-        <li><a href="#portfolio"><i class="bi bi-images"></i> Portfolio</a></li>
-        <li><a href="#contact"><i class="bi bi-envelope"></i> Contact</a></li>
-      </ul>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Blog Cá Nhân</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Giới Thiệu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#blog">Bài Viết</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Liên Hệ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
-  </header>
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="hero section dark-background">
-    <img src="assets/img/hero-bg.jpg" alt="Background" class="">
-    <div class="container" data-aos="fade-up">
-      <h2>[Tên của bạn]</h2>
-      <p>Tôi là <span class="typed" data-typed-items="Designer, Developer, Freelancer"></span></p>
-    </div>
-  </section>
-
-  <!-- ======= About Section ======= -->
-  <section id="about" class="about section">
-    <div class="container section-title" data-aos="fade-up">
-      <h2>About Me</h2>
-      <p>Tôi là [Chức danh/Nghề nghiệp], với kinh nghiệm [số năm] trong lĩnh vực [lĩnh vực chuyên môn].
-         Đam mê sáng tạo và không ngừng học hỏi để mang đến những sản phẩm giá trị cho khách hàng.</p>
-    </div>
-    <div class="container" data-aos="fade-up">
-      <div class="row gy-4 justify-content-center">
-        <div class="col-lg-4">
-          <img src="assets/img/profile.jpg" class="img-fluid rounded" alt="">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center mb-4 mb-md-0">
+                    <img src="https://via.placeholder.com/200" alt="Ảnh đại diện" class="profile-img rounded-circle">
+                </div>
+                <div class="col-md-8">
+                    <h1 class="display-4 fw-bold">Nguyễn Văn A</h1>
+                    <p class="lead">Lập trình viên & Nhà phát triển web</p>
+                    <p class="mb-4">Chia sẻ kiến thức về lập trình, công nghệ và cuộc sống</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-8 content">
-          <h2>[Vị trí công việc chính]</h2>
-          <ul>
-            <li><strong>Website:</strong> yoursite.com</li>
-            <li><strong>Email:</strong> your@email.com</li>
-            <li><strong>Location:</strong> Hà Nội, Việt Nam</li>
-          </ul>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Giới Thiệu Bản Thân</h2>
+            <div class="row">
+                <div class="col-lg-8">
+                    <p>Xin chào! Tôi là một lập trình viên với hơn 5 năm kinh nghiệm trong lĩnh vực phát triển web và ứng dụng. Tôi đam mê tạo ra những sản phẩm công nghệ có giá trị và mang lại trải nghiệm tốt nhất cho người dùng.</p>
+                    <p>Trong blog này, tôi chia sẻ những kiến thức, kinh nghiệm và quan điểm cá nhân về công nghệ, lập trình và cuộc sống. Tôi tin rằng việc chia sẻ kiến thức là cách tốt nhất để cùng nhau phát triển.</p>
+                    <h5 class="mt-4">Kỹ năng chuyên môn:</h5>
+                    <ul>
+                        <li>Phát triển Front-end: HTML, CSS, JavaScript, React</li>
+                        <li>Phát triển Back-end: Node.js, Python, PHP</li>
+                        <li>Cơ sở dữ liệu: MySQL, MongoDB, PostgreSQL</li>
+                        <li>DevOps & Deployment: Docker, AWS, CI/CD</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Thông tin cá nhân</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-map-marker-alt me-2 text-primary"></i> Hà Nội, Việt Nam</li>
+                                <li class="mb-2"><i class="fas fa-envelope me-2 text-primary"></i> email@example.com</li>
+                                <li class="mb-2"><i class="fas fa-phone me-2 text-primary"></i> +84 123 456 789</li>
+                                <li class="mb-2"><i class="fas fa-graduation-cap me-2 text-primary"></i> Đại học Bách Khoa Hà Nội</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Portfolio, Resume, Contact giữ nguyên bố cục như file gốc, chỉ thay nội dung & hình ảnh -->
+    <!-- Blog Section -->
+    <section id="blog" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Bài Viết Mới Nhất</h2>
+            <div class="row">
+                <!-- Blog Post 1 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card blog-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Bài viết 1">
+                        <div class="card-body">
+                            <span class="blog-date">15 tháng 7, 2023</span>
+                            <h5 class="card-title mt-2">Làm chủ React Hooks trong 10 phút</h5>
+                            <p class="card-text">Khám phá cách sử dụng các React Hooks phổ biến để xây dựng ứng dụng React hiệu quả hơn.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 2 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card blog-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Bài viết 2">
+                        <div class="card-body">
+                            <span class="blog-date">10 tháng 7, 2023</span>
+                            <h5 class="card-title mt-2">CSS Grid vs Flexbox: Khi nào nên sử dụng?</h5>
+                            <p class="card-text">So sánh chi tiết giữa CSS Grid và Flexbox, cùng với các tình huống sử dụng phù hợp cho từng công nghệ.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 3 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card blog-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Bài viết 3">
+                        <div class="card-body">
+                            <span class="blog-date">5 tháng 7, 2023</span>
+                            <h5 class="card-title mt-2">Xây dựng REST API với Node.js và Express</h5>
+                            <p class="card-text">Hướng dẫn từng bước xây dựng một REST API hoàn chỉnh sử dụng Node.js và Express framework.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">Xem tất cả bài viết</a>
+            </div>
+        </div>
+    </section>
 
-  <!-- Vendor JS -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/js/main.js"></script>
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Liên Hệ</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <p class="text-center mb-4">Có câu hỏi hoặc muốn hợp tác? Hãy liên hệ với tôi qua biểu mẫu dưới đây.</p>
+                    <form class="contact-form">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" placeholder="Họ và tên" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="email" class="form-control" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Tiêu đề">
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="5" placeholder="Nội dung tin nhắn" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Gửi tin nhắn</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">© 2023 Blog Cá Nhân. Tất cả các quyền được bảo lưu.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-light me-3"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-light"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
