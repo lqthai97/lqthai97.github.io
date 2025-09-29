@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Cá Nhân</title>
+    <title>Blog Cá Nhân - Bùi Thanh Vân</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -17,59 +19,294 @@
             --accent-color: #e74c3c;
             --light-color: #f8f9fa;
             --dark-color: #212529;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
             font-family: 'Inter', sans-serif;
             color: var(--dark-color);
             line-height: 1.6;
+            overflow-x: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        /* Parallax Background */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(40px);
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--gradient-1);
+            top: 10%;
+            left: 5%;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--gradient-2);
+            top: 60%;
+            right: 10%;
+            animation: float 25s infinite ease-in-out reverse;
+        }
+        
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--gradient-3);
+            bottom: 10%;
+            left: 20%;
+            animation: float 18s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+        
+        /* Navigation */
+        .navbar {
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
         }
         
         .navbar-brand {
             font-weight: 700;
             color: var(--primary-color);
+            position: relative;
         }
         
+        .navbar-brand:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .navbar-brand:hover:after {
+            width: 100%;
+        }
+        
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            margin: 0 10px;
+            color: var(--primary-color) !important;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after, .nav-link.active:after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
         .hero-section {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
+            position: relative;
+            background: var(--gradient-1);
             color: white;
-            padding: 100px 0;
+            padding: 150px 0 100px;
+            overflow: hidden;
+        }
+        
+        .hero-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,192C672,181,768,139,864,138.7C960,139,1056,181,1152,181.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center bottom;
         }
         
         .profile-img {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             object-fit: cover;
-            border: 5px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: all 0.5s ease;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-5px) translateX(-50%);
+            }
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 100px 0;
+            position: relative;
         }
         
         .section-title {
             position: relative;
-            margin-bottom: 2rem;
-            font-weight: 600;
+            margin-bottom: 3rem;
+            font-weight: 700;
+            text-align: center;
         }
         
         .section-title:after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--secondary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-2);
+            border-radius: 2px;
+        }
+        
+        /* About Section */
+        .about-section {
+            background-color: white;
+        }
+        
+        .skill-bar {
+            margin-bottom: 20px;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .skill-progress {
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress-bar {
+            height: 100%;
+            border-radius: 4px;
+            background: var(--gradient-3);
+            transition: width 1.5s ease-in-out;
+        }
+        
+        /* Blog Section */
+        .blog-section {
+            background-color: #f8f9fa;
         }
         
         .blog-card {
             border: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
             height: 100%;
+            overflow: hidden;
+            background: white;
         }
         
         .blog-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .blog-card-img {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-card:hover .blog-card-img {
+            transform: scale(1.05);
         }
         
         .blog-date {
@@ -77,6 +314,50 @@
             font-size: 0.9rem;
         }
         
+        .blog-tag {
+            display: inline-block;
+            padding: 5px 10px;
+            background: var(--gradient-4);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 10px;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background-color: white;
+        }
+        
+        .contact-form .form-control {
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-primary {
+            background: var(--gradient-2);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        /* Social Icons */
         .social-icon {
             display: inline-flex;
             align-items: center;
@@ -84,62 +365,120 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background-color: var(--light-color);
-            color: var(--primary-color);
+            background: var(--gradient-1);
+            color: white;
             transition: all 0.3s ease;
             margin: 0 10px 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
         .social-icon:hover {
-            background-color: var(--secondary-color);
-            color: white;
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         
-        .contact-form .form-control {
-            border-radius: 0;
-            border: 1px solid #e0e0e0;
-            padding: 12px 15px;
-        }
-        
-        .contact-form .form-control:focus {
-            box-shadow: none;
-            border-color: var(--secondary-color);
-        }
-        
-        .btn-primary {
-            background-color: var(--secondary-color);
-            border: none;
-            padding: 12px 30px;
-            border-radius: 0;
-            font-weight: 500;
-        }
-        
-        .btn-primary:hover {
-            background-color: #2980b9;
-        }
-        
+        /* Footer */
         footer {
-            background-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
             color: white;
         }
         
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
             .hero-section {
-                padding: 60px 0;
+                padding: 120px 0 80px;
                 text-align: center;
             }
             
             .profile-img {
-                width: 150px;
-                height: 150px;
+                width: 180px;
+                height: 180px;
             }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-2);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gradient-1);
         }
     </style>
 </head>
 <body>
+    <!-- Background Elements -->
+    <div class="parallax-bg"></div>
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+    
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">Blog Cá Nhân</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -147,6 +486,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Trang Chủ</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#about">Giới Thiệu</a>
                     </li>
@@ -162,13 +504,13 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section id="home" class="hero-section">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-4 text-center mb-4 mb-md-0">
-                    <img src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/anh-nu-cute-55.jpg" class="profile-img rounded-circle">
+                <div class="col-md-4 text-center mb-4 mb-md-0" data-aos="fade-right" data-aos-duration="1000">
+                    <img src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/anh-nu-cute-55.jpg" alt="Bùi Thanh Vân" class="profile-img rounded-circle">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 hero-content" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                     <h1 class="display-4 fw-bold">Bùi Thanh Vân</h1>
                     <p class="lead">Lập trình viên & Nhà phát triển web</p>
                     <p class="mb-4">Chia sẻ kiến thức về lập trình, công nghệ và cuộc sống</p>
@@ -183,33 +525,86 @@
                 </div>
             </div>
         </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-5">
+    <section id="about" class="section about-section">
         <div class="container">
-            <h2 class="section-title">Giới Thiệu Bản Thân</h2>
+            <h2 class="section-title" data-aos="fade-up">Giới Thiệu Bản Thân</h2>
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-8" data-aos="fade-right" data-aos-delay="200">
                     <p>Xin chào! Tôi là một lập trình viên với hơn 5 năm kinh nghiệm trong lĩnh vực phát triển web và ứng dụng. Tôi đam mê tạo ra những sản phẩm công nghệ có giá trị và mang lại trải nghiệm tốt nhất cho người dùng.</p>
                     <p>Trong blog này, tôi chia sẻ những kiến thức, kinh nghiệm và quan điểm cá nhân về công nghệ, lập trình và cuộc sống. Tôi tin rằng việc chia sẻ kiến thức là cách tốt nhất để cùng nhau phát triển.</p>
-                    <h5 class="mt-4">Kỹ năng chuyên môn:</h5>
-                    <ul>
-                        <li>Phát triển Front-end: HTML, CSS, JavaScript, React</li>
-                        <li>Phát triển Back-end: Node.js, Python, PHP</li>
-                        <li>Cơ sở dữ liệu: MySQL, MongoDB, PostgreSQL</li>
-                        <li>DevOps & Deployment: Docker, AWS, CI/CD</li>
-                    </ul>
+                    
+                    <h5 class="mt-5 mb-3">Kỹ năng chuyên môn:</h5>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>HTML/CSS/JavaScript</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>React & Vue.js</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Node.js & Python</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Database Management</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Thông tin cá nhân</h5>
+                <div class="col-lg-4" data-aos="fade-left" data-aos-delay="400">
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-body p-4">
+                            <h5 class="card-title mb-4">Thông tin cá nhân</h5>
                             <ul class="list-unstyled">
-                                <li class="mb-2"><i class="fas fa-map-marker-alt me-2 text-primary"></i> Hà Nội, Việt Nam</li>
-                                <li class="mb-2"><i class="fas fa-envelope me-2 text-primary"></i> email@example.com</li>
-                                <li class="mb-2"><i class="fas fa-phone me-2 text-primary"></i> +84 123 456 789</li>
-                                <li class="mb-2"><i class="fas fa-graduation-cap me-2 text-primary"></i> Đại học Bách Khoa Hà Nội</li>
+                                <li class="mb-3 d-flex align-items-center">
+                                    <i class="fas fa-map-marker-alt me-3 text-primary"></i>
+                                    <span>Hà Nội, Việt Nam</span>
+                                </li>
+                                <li class="mb-3 d-flex align-items-center">
+                                    <i class="fas fa-envelope me-3 text-primary"></i>
+                                    <span>email@example.com</span>
+                                </li>
+                                <li class="mb-3 d-flex align-items-center">
+                                    <i class="fas fa-phone me-3 text-primary"></i>
+                                    <span>+84 123 456 789</span>
+                                </li>
+                                <li class="mb-3 d-flex align-items-center">
+                                    <i class="fas fa-graduation-cap me-3 text-primary"></i>
+                                    <span>Đại học Bách Khoa Hà Nội</span>
+                                </li>
+                                <li class="mb-3 d-flex align-items-center">
+                                    <i class="fas fa-briefcase me-3 text-primary"></i>
+                                    <span>Phòng khám Medic Miền Đông</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -219,17 +614,21 @@
     </section>
 
     <!-- Blog Section -->
-    <section id="blog" class="py-5 bg-light">
+    <section id="blog" class="section blog-section">
         <div class="container">
-            <h2 class="section-title">Bài Viết Mới Nhất</h2>
+            <h2 class="section-title" data-aos="fade-up">Bài Viết Mới Nhất</h2>
             <div class="row">
                 <!-- Blog Post 1 -->
-                <div class="col-md-6 col-lg-4 mb-4">
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="card blog-card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Bài viết 1">
-                        <div class="card-body">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top blog-card-img" alt="Bài viết 1">
+                        <div class="card-body p-4">
                             <span class="blog-date">15 tháng 7, 2023</span>
-                            <h5 class="card-title mt-2">Làm chủ React Hooks trong 10 phút</h5>
+                            <div class="mt-2 mb-3">
+                                <span class="blog-tag">Lập trình</span>
+                                <span class="blog-tag">React</span>
+                            </div>
+                            <h5 class="card-title">Làm chủ React Hooks trong 10 phút</h5>
                             <p class="card-text">Khám phá cách sử dụng các React Hooks phổ biến để xây dựng ứng dụng React hiệu quả hơn.</p>
                             <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
                         </div>
@@ -237,12 +636,16 @@
                 </div>
                 
                 <!-- Blog Post 2 -->
-                <div class="col-md-6 col-lg-4 mb-4">
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="400">
                     <div class="card blog-card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Bài viết 2">
-                        <div class="card-body">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top blog-card-img" alt="Bài viết 2">
+                        <div class="card-body p-4">
                             <span class="blog-date">10 tháng 7, 2023</span>
-                            <h5 class="card-title mt-2">CSS Grid vs Flexbox: Khi nào nên sử dụng?</h5>
+                            <div class="mt-2 mb-3">
+                                <span class="blog-tag">CSS</span>
+                                <span class="blog-tag">Web Design</span>
+                            </div>
+                            <h5 class="card-title">CSS Grid vs Flexbox: Khi nào nên sử dụng?</h5>
                             <p class="card-text">So sánh chi tiết giữa CSS Grid và Flexbox, cùng với các tình huống sử dụng phù hợp cho từng công nghệ.</p>
                             <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
                         </div>
@@ -250,12 +653,16 @@
                 </div>
                 
                 <!-- Blog Post 3 -->
-                <div class="col-md-6 col-lg-4 mb-4">
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="600">
                     <div class="card blog-card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Bài viết 3">
-                        <div class="card-body">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top blog-card-img" alt="Bài viết 3">
+                        <div class="card-body p-4">
                             <span class="blog-date">5 tháng 7, 2023</span>
-                            <h5 class="card-title mt-2">Xây dựng REST API với Node.js và Express</h5>
+                            <div class="mt-2 mb-3">
+                                <span class="blog-tag">Backend</span>
+                                <span class="blog-tag">API</span>
+                            </div>
+                            <h5 class="card-title">Xây dựng REST API với Node.js và Express</h5>
                             <p class="card-text">Hướng dẫn từng bước xây dựng một REST API hoàn chỉnh sử dụng Node.js và Express framework.</p>
                             <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
                         </div>
@@ -263,36 +670,36 @@
                 </div>
             </div>
             
-            <div class="text-center mt-4">
+            <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="800">
                 <a href="#" class="btn btn-primary">Xem tất cả bài viết</a>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-5">
+    <section id="contact" class="section contact-section">
         <div class="container">
-            <h2 class="section-title">Liên Hệ</h2>
+            <h2 class="section-title" data-aos="fade-up">Liên Hệ</h2>
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <p class="text-center mb-4">Có câu hỏi hoặc muốn hợp tác? Hãy liên hệ với tôi qua biểu mẫu dưới đây.</p>
-                    <form class="contact-form">
+                    <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="200">Có câu hỏi hoặc muốn hợp tác? Hãy liên hệ với tôi qua biểu mẫu dưới đây.</p>
+                    <form class="contact-form" data-aos="fade-up" data-aos-delay="400">
                         <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-4">
                                 <input type="text" class="form-control" placeholder="Họ và tên" required>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-4">
                                 <input type="email" class="form-control" placeholder="Email" required>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <input type="text" class="form-control" placeholder="Tiêu đề">
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <textarea class="form-control" rows="5" placeholder="Nội dung tin nhắn" required></textarea>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Gửi tin nhắn</button>
+                            <button type="submit" class="btn btn-primary px-5">Gửi tin nhắn</button>
                         </div>
                     </form>
                 </div>
@@ -301,23 +708,102 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-4">
+    <footer>
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-6">
-                    <p class="mb-0">© 2023 Blog Cá Nhân. Tất cả các quyền được bảo lưu.</p>
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <p class="mb-0">© 2023 Blog Cá Nhân Bùi Thanh Vân. Tất cả các quyền được bảo lưu.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="#" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-light me-3"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="text-light"><i class="fab fa-github"></i></a>
+                    <div class="footer-links">
+                        <a href="#" class="me-3"><i class="fab fa-facebook-f me-1"></i> Facebook</a>
+                        <a href="#" class="me-3"><i class="fab fa-twitter me-1"></i> Twitter</a>
+                        <a href="#" class="me-3"><i class="fab fa-linkedin-in me-1"></i> LinkedIn</a>
+                        <a href="#"><i class="fab fa-github me-1"></i> GitHub</a>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            const backToTop = document.querySelector('.back-to-top');
+            
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                backToTop.classList.add('active');
+            } else {
+                navbar.classList.remove('scrolled');
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animate skill bars when they come into view
+        const animateSkillBars = () => {
+            const skillBars = document.querySelectorAll('.skill-progress-bar');
+            
+            skillBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        };
+        
+        // Use Intersection Observer to trigger skill bar animation
+        const aboutSection = document.getElementById('about');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateSkillBars();
+                    observer.unobserve(aboutSection);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        if (aboutSection) {
+            observer.observe(aboutSection);
+        }
+    </script>
 </body>
 </html>
