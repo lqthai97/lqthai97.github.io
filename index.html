@@ -3,643 +3,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Cá Nhân - Lê Quốc Thái</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- AOS CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <title>Blog Cá Nhân - Tên Của Bạn</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #3498db;
             --accent-color: #e74c3c;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
+            --light-bg: #f8f9fa;
+            --text-color: #333;
         }
         
         body {
-            font-family: 'Inter', sans-serif;
-            color: var(--dark-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
             line-height: 1.6;
-            overflow-x: hidden;
-            background-color: #f9f9f9;
         }
         
-        /* Parallax Background */
-        .parallax-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
-        
-        .floating-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.1;
-            filter: blur(40px);
-        }
-        
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            background: var(--gradient-1);
-            top: 10%;
-            left: 5%;
-            animation: float 20s infinite ease-in-out;
-        }
-        
-        .shape-2 {
-            width: 400px;
-            height: 400px;
-            background: var(--gradient-2);
-            top: 60%;
-            right: 10%;
-            animation: float 25s infinite ease-in-out reverse;
-        }
-        
-        .shape-3 {
-            width: 250px;
-            height: 250px;
-            background: var(--gradient-3);
-            bottom: 10%;
-            left: 20%;
-            animation: float 18s infinite ease-in-out;
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(180deg);
-            }
-        }
-        
-        /* Navigation */
-        .navbar {
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
-            background-color: rgba(255, 255, 255, 0.9) !important;
-        }
-        
-        .navbar.scrolled {
-            background-color: rgba(255, 255, 255, 0.95) !important;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 0;
-        }
-        
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color);
-            position: relative;
-        }
-        
-        .navbar-brand:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--secondary-color);
-            transition: width 0.3s ease;
-        }
-        
-        .navbar-brand:hover:after {
-            width: 100%;
-        }
-        
-        .nav-link {
-            position: relative;
-            font-weight: 500;
-            margin: 0 10px;
-            color: var(--primary-color) !important;
-        }
-        
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--secondary-color);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover:after, .nav-link.active:after {
-            width: 100%;
-        }
-        
-        /* Hero Section với Background Ảnh */
         .hero-section {
-            position: relative;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 150px 0 100px;
-            overflow: hidden;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-        
-       .hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    background-image: url('https://cdn.pixabay.com/photo/2025/08/21/13/58/grassland-9787999_1280.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-        
-        .hero-bg-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: -1;
-        }
-        
-        .hero-section:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,192C672,181,768,139,864,138.7C960,139,1056,181,1152,181.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-            background-size: cover;
-            background-position: center bottom;
-            z-index: -1;
-        }
-        
-        .profile-img {
-            width: 220px;
-            height: 220px;
-            object-fit: cover;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            transition: all 0.5s ease;
-        }
-        
-        .profile-img:hover {
-            transform: scale(1.05);
-            border-color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 1.5rem;
-            animation: bounce 2s infinite;
-            z-index: 1;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0) translateX(-50%);
-            }
-            40% {
-                transform: translateY(-10px) translateX(-50%);
-            }
-            60% {
-                transform: translateY(-5px) translateX(-50%);
-            }
-        }
-        
-        /* Section Styling */
-        .section {
-            padding: 100px 0;
-            position: relative;
-        }
-        
-        .section-title {
-            position: relative;
-            margin-bottom: 3rem;
-            font-weight: 700;
+            padding: 80px 0;
             text-align: center;
         }
         
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--gradient-2);
-            border-radius: 2px;
-        }
-        
-        /* About Section */
-        .about-section {
-            background-color: white;
-        }
-        
-        .skill-bar {
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            object-fit: cover;
             margin-bottom: 20px;
         }
         
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
         }
         
-        .skill-progress {
-            height: 8px;
-            background-color: #e9ecef;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .skill-progress-bar {
-            height: 100%;
-            border-radius: 4px;
-            background: var(--gradient-3);
-            transition: width 1.5s ease-in-out;
-        }
-        
-        /* Blog Section */
-        .blog-section {
-            background-color: #f8f9fa;
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--secondary-color);
         }
         
         .blog-card {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: all 0.4s ease;
-            height: 100%;
             overflow: hidden;
-            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
         }
         
         .blog-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
         
-        .blog-card-img {
+        .blog-card img {
             height: 200px;
             object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .blog-card:hover .blog-card-img {
-            transform: scale(1.05);
         }
         
         .blog-date {
-            color: #6c757d;
+            color: #999;
             font-size: 0.9rem;
         }
         
-        .blog-tag {
+        .social-links a {
             display: inline-block;
-            padding: 5px 10px;
-            background: var(--gradient-4);
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 50%;
+            background: var(--light-bg);
+            color: var(--primary-color);
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary-color);
             color: white;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-            margin-bottom: 10px;
+            transform: translateY(-3px);
         }
         
-        /* Contact Section */
-        .contact-section {
-            background-color: white;
+        .contact-form {
+            background: var(--light-bg);
+            padding: 40px;
+            border-radius: 15px;
         }
         
-        .contact-form .form-control {
-            border-radius: 10px;
-            border: 1px solid #e0e0e0;
-            padding: 12px 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-form .form-control:focus {
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-            border-color: var(--secondary-color);
-        }
-        
-        .btn-primary {
-            background: var(--gradient-2);
-            border: none;
+        .btn-custom {
+            background: var(--secondary-color);
+            color: white;
             padding: 12px 30px;
-            border-radius: 30px;
-            font-weight: 500;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
             transition: all 0.3s ease;
+        }
+        
+        .btn-custom:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
         
-        /* Social Icons */
-        .social-icon {
-            display: inline-flex;
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .testimonial-author {
+            display: flex;
             align-items: center;
-            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .testimonial-author img {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            transition: all 0.3s ease;
-            margin: 0 10px 10px 0;
+            margin-right: 15px;
+        }
+        
+        .cv-download {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
+            text-align: center;
         }
         
-        .social-icon:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            background: rgba(255, 255, 255, 0.3);
+        .cv-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
         }
         
-        /* Footer */
         footer {
             background: var(--primary-color);
             color: white;
-            padding: 40px 0 20px;
-        }
-        
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--gradient-2);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .back-to-top.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-section {
-                padding: 120px 0 80px;
-                text-align: center;
-                min-height: 80vh;
-            }
-            
-            .profile-img {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .section {
-                padding: 80px 0;
-            }
-            
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-            }
-            
-            .hero-bg {
-                background-attachment: scroll;
-            }
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--gradient-2);
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gradient-1);
+            padding: 30px 0;
+            margin-top: 60px;
         }
     </style>
 </head>
 <body>
-    <!-- Background Elements -->
-    <div class="parallax-bg"></div>
-    <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-    </div>
-    
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <!-- Hero Section -->
+    <section class="hero-section">
         <div class="container">
-            <a class="navbar-brand" href="#">Blog Cá Nhân - Lê Quốc Thái</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#home">Trang Chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">Giới Thiệu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#blog">Bài Viết</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Liên Hệ</a>
-                    </li>
-                </ul>
+            <img src="https://via.placeholder.com/180" alt="Ảnh đại diện" class="profile-img">
+            <h1 class="display-4 mb-3">Nguyễn Văn A</h1>
+            <p class="lead mb-4">Web Developer | Content Creator | Tech Enthusiast</p>
+            <div class="social-links">
+                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section với Background Ảnh -->
-    <section id="home" class="hero-section">
-        <div class="hero-bg"></div>
-        <div class="hero-bg-overlay"></div>
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-4 text-center mb-4 mb-md-0" data-aos="fade-right" data-aos-duration="1000">
-                    <img src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/anh-nu-cute-55.jpg" alt="Lê Quốc Thái" class="profile-img rounded-circle">
-                </div>
-                <div class="col-md-8 hero-content" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-                    <h1 class="display-4 fw-bold">Lê Quốc Thái</h1>
-                    <p class="lead">Nhân viên công nghệ thông tin tại bệnh viện</p>
-                    <p class="mb-4">Chia sẻ kiến thức cuộc sống bên lề công việc chính là kiểm tra hồ sơ XML</p>
-                    <div class="social-links">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="section about-section">
+    <section class="py-5">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Giới Thiệu Bản Thân</h2>
-            <div class="row">
-                <div class="col-lg-8" data-aos="fade-right" data-aos-delay="200">
-                    <p>Xin chào! Tôi là Lê Quốc Thái, một nhân viên công nghệ thông tin tại bệnh viện với niềm đam mê công nghệ và cuộc sống. Công việc chính của tôi là kiểm tra và xử lý hồ sơ XML, nhưng ngoài giờ làm việc, tôi thích khám phá những điều thú vị trong cuộc sống.</p>
-                    <p>Trong blog này, tôi chia sẻ những trải nghiệm, góc nhìn và những câu chuyện thú vị về cuộc sống, công việc và những đam mê cá nhân. Tôi tin rằng mỗi ngày đều là một cơ hội để học hỏi và trưởng thành.</p>
-                    
-                    <h5 class="mt-5 mb-3">Kỹ năng đặc biệt:</h5>
-                    <div class="skill-bar">
-                        <div class="skill-name">
-                            <span>Xàm</span>
-                            <span>95%</span>
-                        </div>
-                        <div class="skill-progress">
-                            <div class="skill-progress-bar" style="width: 95%"></div>
-                        </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title">Giới Thiệu</h2>
+                    <p class="lead">Xin chào! Tôi là một lập trình viên web đam mê công nghệ và chia sẻ kiến thức. Với hơn 5 năm kinh nghiệm trong ngành, tôi chuyên về phát triển ứng dụng web hiện đại và tạo nội dung kỹ thuật.</p>
+                    <p>Tôi tin rằng việc học hỏi không bao giờ ngừng lại, và blog này là nơi tôi chia sẻ những điều tôi học được mỗi ngày. Từ JavaScript đến các framework mới nhất, tôi luôn khám phá và thử nghiệm những công nghệ mới.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">Video Nổi Bật</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video nổi bật" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    
-                    <div class="skill-bar">
-                        <div class="skill-name">
-                            <span>Cà rỡn</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="skill-progress">
-                            <div class="skill-progress-bar" style="width: 90%"></div>
-                        </div>
+                    <div class="text-center mt-3">
+                        <h4>Hướng Dẫn Lập Trình Web Từ Cơ Bản Đến Nâng Cao</h4>
+                        <p class="text-muted">Khám phá những kỹ thuật và công cụ mới nhất trong phát triển web</p>
                     </div>
-                    
-                    <div class="skill-bar">
-                        <div class="skill-name">
-                            <span>Nhiều chuyện</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-progress">
-                            <div class="skill-progress-bar" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-bar">
-                        <div class="skill-name">
-                            <span>Nói xấu người khác</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-progress">
-                            <div class="skill-progress-bar" style="width: 80%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Posts Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Bài Viết Mới Nhất</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card blog-card">
+                        <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Blog post">
+                        <div class="card-body">
+                            <p class="blog-date"><i class="far fa-calendar"></i> 25 Tháng 9, 2025</p>
+                            <h5 class="card-title">Xu Hướng Web Development Năm 2025</h5>
+                            <p class="card-text">Khám phá những xu hướng công nghệ web mới nhất và cách chúng đang thay đổi cách chúng ta xây dựng ứng dụng...</p>
+                            <a href="#" class="btn btn-custom btn-sm">Đọc thêm</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4" data-aos="fade-left" data-aos-delay="400">
-                    <div class="card border-0 shadow-lg">
-                        <div class="card-body p-4">
-                            <h5 class="card-title mb-4">Thông tin cá nhân</h5>
-                            <ul class="list-unstyled">
-                                <li class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-map-marker-alt me-3 text-primary"></i>
-                                    <span>Cao Lãnh, Đồng Tháp</span>
-                                </li>
-                                <li class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-envelope me-3 text-primary"></i>
-                                    <span>lethaicaolanh2@gmail.com</span>
-                                </li>
-                                <li class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-phone me-3 text-primary"></i>
-                                    <span>+84 984 998 513</span>
-                                </li>
-                                <li class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-graduation-cap me-3 text-primary"></i>
-                                    <span>Đại học Đồng Tháp</span>
-                                </li>
-                                <li class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-briefcase me-3 text-primary"></i>
-                                    <span>Bệnh viện Phục hồi chức năng</span>
-                                </li>
-                            </ul>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card blog-card">
+                        <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Blog post">
+                        <div class="card-body">
+                            <p class="blog-date"><i class="far fa-calendar"></i> 20 Tháng 9, 2025</p>
+                            <h5 class="card-title">Tối Ưu Performance Cho React App</h5>
+                            <p class="card-text">Các kỹ thuật và best practices để tối ưu hóa hiệu suất ứng dụng React của bạn một cách hiệu quả...</p>
+                            <a href="#" class="btn btn-custom btn-sm">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card blog-card">
+                        <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Blog post">
+                        <div class="card-body">
+                            <p class="blog-date"><i class="far fa-calendar"></i> 15 Tháng 9, 2025</p>
+                            <h5 class="card-title">CSS Grid vs Flexbox: Khi Nào Dùng Cái Nào?</h5>
+                            <p class="card-text">So sánh chi tiết giữa CSS Grid và Flexbox, giúp bạn lựa chọn công cụ phù hợp cho dự án...</p>
+                            <a href="#" class="btn btn-custom btn-sm">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card blog-card">
+                        <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Blog post">
+                        <div class="card-body">
+                            <p class="blog-date"><i class="far fa-calendar"></i> 10 Tháng 9, 2025</p>
+                            <h5 class="card-title">Bảo Mật Web: 10 Lỗi Phổ Biến</h5>
+                            <p class="card-text">Tìm hiểu về những lỗi bảo mật phổ biến nhất và cách phòng tránh chúng trong ứng dụng web...</p>
+                            <a href="#" class="btn btn-custom btn-sm">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card blog-card">
+                        <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Blog post">
+                        <div class="card-body">
+                            <p class="blog-date"><i class="far fa-calendar"></i> 5 Tháng 9, 2025</p>
+                            <h5 class="card-title">Giới Thiệu TypeScript Cho Người Mới</h5>
+                            <p class="card-text">Hướng dẫn từng bước để bắt đầu với TypeScript và tận dụng sức mạnh của static typing...</p>
+                            <a href="#" class="btn btn-custom btn-sm">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card blog-card">
+                        <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Blog post">
+                        <div class="card-body">
+                            <p class="blog-date"><i class="far fa-calendar"></i> 1 Tháng 9, 2025</p>
+                            <h5 class="card-title">Docker Basics: Container Hóa Ứng Dụng</h5>
+                            <p class="card-text">Làm chủ Docker và học cách container hóa ứng dụng của bạn để triển khai dễ dàng hơn...</p>
+                            <a href="#" class="btn btn-custom btn-sm">Đọc thêm</a>
                         </div>
                     </div>
                 </div>
@@ -647,196 +309,99 @@
         </div>
     </section>
 
-    <!-- Blog Section -->
-    <section id="blog" class="section blog-section">
+    <!-- CV Download & Testimonials -->
+    <section class="py-5 bg-light">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Bài Viết Mới Nhất</h2>
-            <div class="row">
-                <!-- Blog Post 1 -->
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card blog-card">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top blog-card-img" alt="Công việc IT tại bệnh viện">
-                        <div class="card-body p-4">
-                            <span class="blog-date">15 tháng 7, 2025</span>
-                            <div class="mt-2 mb-3">
-                                <span class="blog-tag">Công việc</span>
-                                <span class="blog-tag">IT</span>
-                            </div>
-                            <h5 class="card-title">Một ngày làm việc của IT bệnh viện</h5>
-                            <p class="card-text">Chia sẻ về công việc thú vị của một nhân viên IT trong môi trường y tế và những thách thức đặc biệt.</p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
+            <div class="row g-4">
+                <!-- CV Download -->
+                <div class="col-lg-4">
+                    <div class="cv-download">
+                        <i class="fas fa-file-download cv-icon"></i>
+                        <h4>Tải CV Của Tôi</h4>
+                        <p class="text-muted">Xem chi tiết kinh nghiệm và kỹ năng của tôi</p>
+                        <a href="#" class="btn btn-custom mt-2">
+                            <i class="fas fa-download me-2"></i>Tải CV (PDF)
+                        </a>
+                        <div class="mt-3">
+                            <small class="text-muted">Cập nhật: Tháng 9, 2025</small>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Blog Post 2 -->
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="400">
-                    <div class="card blog-card">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top blog-card-img" alt="Kiểm tra XML">
-                        <div class="card-body p-4">
-                            <span class="blog-date">10 tháng 7, 2025</span>
-                            <div class="mt-2 mb-3">
-                                <span class="blog-tag">XML</span>
-                                <span class="blog-tag">Công nghệ</span>
+
+                <!-- Testimonials -->
+                <div class="col-lg-8">
+                    <h2 class="section-title">Lời Chứng Thực</h2>
+                    <div class="testimonial-card">
+                        <p class="mb-0"><i class="fas fa-quote-left me-2 text-secondary"></i>Làm việc với Văn A là một trải nghiệm tuyệt vời. Anh ấy không chỉ có kỹ năng kỹ thuật vững vàng mà còn rất chuyên nghiệp và dễ hợp tác.<i class="fas fa-quote-right ms-2 text-secondary"></i></p>
+                        <div class="testimonial-author">
+                            <img src="https://via.placeholder.com/50" alt="Author">
+                            <div>
+                                <strong>Trần Thị B</strong>
+                                <div class="text-muted small">Project Manager, Tech Corp</div>
                             </div>
-                            <h5 class="card-title">Bí kíp kiểm tra hồ sơ XML hiệu quả</h5>
-                            <p class="card-text">Những mẹo và công cụ hữu ích giúp việc kiểm tra và xử lý hồ sơ XML trở nên dễ dàng hơn.</p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="mb-0"><i class="fas fa-quote-left me-2 text-secondary"></i>Một developer tài năng với khả năng giải quyết vấn đề xuất sắc. Văn A luôn đưa ra các giải pháp sáng tạo và hiệu quả cho mọi thử thách.<i class="fas fa-quote-right ms-2 text-secondary"></i></p>
+                        <div class="testimonial-author">
+                            <img src="https://via.placeholder.com/50" alt="Author">
+                            <div>
+                                <strong>Lê Văn C</strong>
+                                <div class="text-muted small">Senior Developer, Digital Agency</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Blog Post 3 -->
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="600">
-                    <div class="card blog-card">
-                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top blog-card-img" alt="Cuộc sống Đồng Tháp">
-                        <div class="card-body p-4">
-                            <span class="blog-date">5 tháng 7, 2025</span>
-                            <div class="mt-2 mb-3">
-                                <span class="blog-tag">Đồng Tháp</span>
-                                <span class="blog-tag">Cuộc sống</span>
-                            </div>
-                            <h5 class="card-title">Khám phá vẻ đẹp bình dị của Đồng Tháp</h5>
-                            <p class="card-text">Những góc nhìn thú vị về cuộc sống và con người tại vùng đất Đồng Tháp quê hương tôi.</p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Đọc thêm</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="800">
-                <a href="#" class="btn btn-primary">Xem tất cả bài viết</a>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
+    <section class="py-5">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Liên Hệ</h2>
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="200">Có câu hỏi hoặc muốn hợp tác? Hãy liên hệ với tôi qua biểu mẫu dưới đây.</p>
-                    <form class="contact-form" data-aos="fade-up" data-aos-delay="400">
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <input type="text" class="form-control" placeholder="Họ và tên" required>
+            <h2 class="section-title text-center">Liên Hệ</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form">
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">Họ và Tên</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="subject" class="form-label">Tiêu Đề</label>
+                                    <input type="text" class="form-control" id="subject" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label">Nội Dung</label>
+                                    <textarea class="form-control" id="message" rows="5" required></textarea>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <button type="submit" class="btn btn-custom">
+                                        <i class="fas fa-paper-plane me-2"></i>Gửi Tin Nhắn
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-4">
-                                <input type="email" class="form-control" placeholder="Email" required>
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <input type="text" class="form-control" placeholder="Tiêu đề">
-                        </div>
-                        <div class="mb-4">
-                            <textarea class="form-control" rows="5" placeholder="Nội dung tin nhắn" required></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary px-5">Gửi tin nhắn</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="text-center">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 mb-4 mb-md-0">
-                    <p class="mb-0">© 2025 Blog Cá Nhân Lê Quốc Thái. Tất cả các quyền được bảo lưu.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <div class="footer-links">
-                        <a href="#" class="me-3"><i class="fab fa-facebook-f me-1"></i> Facebook</a>
-                        <a href="#" class="me-3"><i class="fab fa-youtube me-1"></i> YouTube</a>
-                        <a href="#" class="me-3"><i class="fab fa-instagram me-1"></i> Instagram</a>
-                    </div>
-                </div>
-            </div>
+            <p class="mb-0">&copy; 2025 Nguyễn Văn A. All rights reserved.</p>
+            <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> and <i class="fas fa-code"></i></p>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top">
-        <i class="fas fa-chevron-up"></i>
-    </a>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Custom JS -->
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
-        });
-        
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            const backToTop = document.querySelector('.back-to-top');
-            
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-                backToTop.classList.add('active');
-            } else {
-                navbar.classList.remove('scrolled');
-                backToTop.classList.remove('active');
-            }
-        });
-        
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Animate skill bars when they come into view
-        const animateSkillBars = () => {
-            const skillBars = document.querySelectorAll('.skill-progress-bar');
-            
-            skillBars.forEach(bar => {
-                const width = bar.style.width;
-                bar.style.width = '0';
-                
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, 500);
-            });
-        };
-        
-        // Use Intersection Observer to trigger skill bar animation
-        const aboutSection = document.getElementById('about');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateSkillBars();
-                    observer.unobserve(aboutSection);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        if (aboutSection) {
-            observer.observe(aboutSection);
-        }
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
