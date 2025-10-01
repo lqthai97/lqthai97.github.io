@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LQT Checker</title>
+  <title>Lê Quốc Thái</title>
   <style>
-    /* Reset CSS */
+    /* Reset */
     * {margin:0; padding:0; box-sizing:border-box;}
 
     body {
@@ -13,19 +13,20 @@
       color: #fff;
       line-height: 1.6;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
-    /* Background */
+    /* Background toàn trang */
     .hero-bg {
       background: url("https://drive.google.com/uc?export=view&id=1wgxKcJRnGwGHK5dVt1neNqQn8MFVofKl") no-repeat center center/cover;
       position: fixed;
       top:0; left:0;
       width:100%; height:100%;
       z-index:-1;
-      filter: brightness(0.5);
+      filter: brightness(0.45);
     }
 
-    /* Container chính */
+    /* HERO SECTION */
     .container {
       display: flex;
       flex-direction: column;
@@ -37,7 +38,6 @@
       animation: fadeIn 2s ease;
     }
 
-    /* Logo */
     .logo img {
       width: 140px;
       height: auto;
@@ -52,7 +52,7 @@
       font-size: 2.5rem;
       margin-bottom: 15px;
       color: #00eaff;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
     }
 
     p {
@@ -72,50 +72,102 @@
       transition: 0.3s;
       box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
     }
-
     .btn:hover {
       background: #0097a7;
       transform: scale(1.05);
     }
 
-    footer {
-      position: absolute;
-      bottom: 15px;
-      width: 100%;
+    /* SECTION STYLE */
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 60px 20px;
       text-align: center;
+      background: rgba(0,0,0,0.6);
+    }
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #00eaff;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+
+    section p {
+      max-width: 800px;
+      margin-bottom: 20px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.7);
       font-size: 0.9rem;
       color: #ddd;
     }
 
     /* Hiệu ứng */
-    @keyframes fadeIn {
-      from {opacity:0;}
-      to {opacity:1;}
-    }
-
-    @keyframes zoomIn {
-      from {transform:scale(0.7);}
-      to {transform:scale(1);}
-    }
+    @keyframes fadeIn {from {opacity:0;} to {opacity:1;}}
+    @keyframes zoomIn {from {transform:scale(0.7);} to {transform:scale(1);}}
   </style>
 </head>
 <body>
   <div class="hero-bg"></div>
+
+  <!-- HERO -->
   <div class="container">
-    <!-- Logo -->
     <div class="logo">
       <img src="https://drive.google.com/uc?export=view&id=1JsXKlJNjl05eTyNcGSa1sMdCVnePyZc7" alt="Logo Phần mềm">
     </div>
-
-    <!-- Nội dung -->
-    <h1>Phần mềm kiểm tra và sửa lỗi XML</h1>
+    <h1>Phần mềm kiểm tra & sửa lỗi XML</h1>
     <p>
       Giải pháp thông minh giúp các cơ sở y tế tự động phát hiện, phân tích và khắc phục lỗi dữ liệu 
       trong hồ sơ khám chữa bệnh điện tử.  
       Hỗ trợ nâng cao hiệu quả giám định BHYT, giảm thiểu xuất toán và tiết kiệm chi phí.
     </p>
-    <a href="#more" class="btn">Tìm hiểu thêm</a>
+    <a href="#about" class="btn">Khám phá ngay</a>
   </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>Giới thiệu</h2>
+    <p>
+      Phần mềm ra đời từ nhu cầu thực tiễn: giảm sai sót dữ liệu, hỗ trợ cán bộ y tế trong công tác kiểm tra,
+      giám định và chuẩn hóa hồ sơ khám chữa bệnh điện tử.  
+    </p>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <h2>Tính năng nổi bật</h2>
+    <p>✔ Kiểm tra & sửa lỗi XML nhanh chóng, chính xác.</p>
+    <p>✔ Tích hợp AI phân tích hồ sơ chuyên sâu.</p>
+    <p>✔ Xuất báo cáo trực quan, hỗ trợ cán bộ quản lý.</p>
+    <p>✔ Kết nối Telegram để nhận thông tin bảo mật, tiện lợi.</p>
+  </section>
+
+  <!-- EFFECTIVENESS -->
+  <section id="effect">
+    <h2>Hiệu quả mang lại</h2>
+    <p>✅ Giảm sai sót hồ sơ, hạn chế bị xuất toán BHYT.</p>
+    <p>✅ Tăng hiệu quả làm việc của cán bộ y tế.</p>
+    <p>✅ Tiết kiệm chi phí vận hành, đồng hành cùng quá trình chuyển đổi số.</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Liên hệ</h2>
+    <p>
+      Người phát triển: <strong>Lê Quốc Thái</strong><br>
+      Email: <a href="mailto:yourmail@example.com" style="color:#00eaff">yourmail@example.com</a><br>
+      Điện thoại: 09xx.xxx.xxx
+    </p>
+  </section>
 
   <footer>
     © 2025 - Lê Quốc Thái | Giải pháp số cho ngành y tế
