@@ -1,176 +1,705 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lê Quốc Thái</title>
-  <style>
-    /* Reset */
-    * {margin:0; padding:0; box-sizing:border-box;}
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #fff;
-      line-height: 1.6;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
-
-    /* Background toàn trang */
-    .hero-bg {
-      background: url("https://raw.githubusercontent.com/lqthai97/lqthai97.github.io/refs/heads/main/XML%203176.jpg") no-repeat center center/cover;
-      position: fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      z-index:-1;
-      filter: brightness(0.45);
-    }
-
-    /* HERO SECTION */
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      height: 100vh;
-      padding: 20px;
-      animation: fadeIn 2s ease;
-    }
-
-    .logo img {
-      width: 140px;
-      height: auto;
-      margin-bottom: 20px;
-      animation: zoomIn 1.5s ease;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.1);
-      padding: 10px;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      color: #00eaff;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-    }
-
-    p {
-      max-width: 700px;
-      font-size: 1.1rem;
-      margin-bottom: 25px;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-    }
-
-    .btn {
-      background: #00bcd4;
-      color: #fff;
-      padding: 12px 28px;
-      border-radius: 30px;
-      font-size: 1.1rem;
-      text-decoration: none;
-      transition: 0.3s;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
-    }
-    .btn:hover {
-      background: #0097a7;
-      transform: scale(1.05);
-    }
-
-    /* SECTION STYLE */
-    section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding: 60px 20px;
-      text-align: center;
-      background: rgba(0,0,0,0.6);
-    }
-
-    section h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #00eaff;
-      text-transform: uppercase;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-    }
-
-    section p {
-      max-width: 800px;
-      margin-bottom: 20px;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: rgba(0,0,0,0.7);
-      font-size: 0.9rem;
-      color: #ddd;
-    }
-
-    /* Hiệu ứng */
-    @keyframes fadeIn {from {opacity:0;} to {opacity:1;}}
-    @keyframes zoomIn {from {transform:scale(0.7);} to {transform:scale(1);}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML Checker - Giải Pháp Kiểm Tra Dữ Liệu Y Tế</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00bcd4;
+            --secondary-color: #0097a7;
+            --accent-color: #00eaff;
+            --dark-bg: #1a1a2e;
+            --darker-bg: #0f0f1e;
+            --light-text: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--light-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--darker-bg);
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: rgba(26, 26, 46, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 188, 212, 0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color) !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .navbar-brand img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+        
+        .nav-link {
+            color: var(--light-text) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(0, 188, 212, 0.2)),
+                        url('https://raw.githubusercontent.com/lqthai97/lqthai97.github.io/refs/heads/main/XML%203176.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 234, 255, 0.1) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            border-radius: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 234, 255, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(0, 234, 255, 0.5);
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--light-text);
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        
+        .btn-hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 188, 212, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 188, 212, 0.6);
+            color: #fff;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .section-dark {
+            background: var(--dark-bg);
+        }
+        
+        .section-darker {
+            background: var(--darker-bg);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+        
+        /* Feature Cards */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 234, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 40px rgba(0, 234, 255, 0.3);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 188, 212, 0.4);
+        }
+        
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        .feature-text {
+            color: var(--light-text);
+            line-height: 1.7;
+        }
+        
+        /* Benefits Section */
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--primary-color);
+            padding: 25px 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-item:hover {
+            background: rgba(0, 234, 255, 0.1);
+            border-left-color: var(--accent-color);
+            transform: translateX(10px);
+        }
+        
+        .benefit-icon {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .benefit-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        /* Stats Section */
+        .stats-card {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .stats-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .stats-label {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            font-weight: 500;
+        }
+        
+        /* Screenshot Gallery */
+        .screenshot-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .screenshot-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 234, 255, 0.4);
+        }
+        
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Contact Section */
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 234, 255, 0.2);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+        }
+        
+        .contact-info {
+            margin: 30px 0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            font-size: 1.1rem;
+        }
+        
+        .contact-item i {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+        
+        .contact-item a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-item a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 234, 255, 0.2);
+        }
+        
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 188, 212, 0.4);
+        }
+        
+        .scroll-top.show {
+            opacity: 1;
+        }
+        
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="hero-bg"></div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <img src="https://raw.githubusercontent.com/lqthai97/lqthai97.github.io/refs/heads/main/Check%20XML%20512.jpg" alt="Logo">
+                XML Checker
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Tính năng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#benefits">Lợi ích</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#stats">Thống kê</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Liên hệ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-  <!-- HERO -->
-  <div class="container">
-    <div class="logo">
-      <img src="https://raw.githubusercontent.com/lqthai97/lqthai97.github.io/refs/heads/main/Check%20XML%20512.jpg" alt="Logo Phần mềm">
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content" data-aos="fade-up">
+            <div class="hero-logo">
+                <img src="https://raw.githubusercontent.com/lqthai97/lqthai97.github.io/refs/heads/main/Check%20XML%20512.jpg" alt="XML Checker Logo">
+            </div>
+            <h1 class="hero-title">Phần Mềm Kiểm Tra & Sửa Lỗi XML</h1>
+            <p class="hero-subtitle">
+                Giải pháp thông minh giúp các cơ sở y tế tự động phát hiện, phân tích và khắc phục lỗi dữ liệu 
+                trong hồ sơ khám chữa bệnh điện tử. Hỗ trợ nâng cao hiệu quả giám định BHYT, giảm thiểu xuất toán và tiết kiệm chi phí.
+            </p>
+            <a href="#features" class="btn-hero">
+                <i class="fas fa-rocket me-2"></i>Khám phá ngay
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section-dark">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Tính Năng Nổi Bật</h2>
+                <p class="section-subtitle">
+                    Công nghệ tiên tiến kết hợp với giao diện thân thiện, mang đến trải nghiệm tối ưu
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-code"></i>
+                        </div>
+                        <h3 class="feature-title">Kiểm Tra XML Tự Động</h3>
+                        <p class="feature-text">
+                            Quét và phát hiện lỗi XML nhanh chóng, chính xác với thuật toán thông minh
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h3 class="feature-title">Sửa Lỗi Thông Minh</h3>
+                        <p class="feature-text">
+                            Tự động đề xuất và sửa chữa các lỗi phổ biến trong hồ sơ điện tử
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="feature-title">Phân Tích AI</h3>
+                        <p class="feature-text">
+                            Tích hợp AI phân tích hồ sơ chuyên sâu, dự đoán và phòng ngừa lỗi
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">Báo Cáo Trực Quan</h3>
+                        <p class="feature-text">
+                            Xuất báo cáo chi tiết với biểu đồ, thống kê giúp quản lý dễ dàng
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <h3 class="feature-title">Thông Báo Telegram</h3>
+                        <p class="feature-text">
+                            Nhận thông báo bảo mật, kết quả kiểm tra ngay trên Telegram
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Bảo Mật Cao</h3>
+                        <p class="feature-text">
+                            Mã hóa dữ liệu, đảm bảo an toàn thông tin bệnh nhân tuyệt đối
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="700">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync"></i>
+                        </div>
+                        <h3 class="feature-title">Cập Nhật Liên Tục</h3>
+                        <p class="feature-text">
+                            Luôn cập nhật theo quy định mới nhất của Bảo hiểm Y tế
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="800">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="feature-title">Hỗ Trợ 24/7</h3>
+                        <p class="feature-text">
+                            Đội ngũ hỗ trợ kỹ thuật chuyên nghiệp, sẵn sàng 24/7
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="section-darker">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Hiệu Quả Mang Lại</h2>
+                <p class="section-subtitle">
+                    Tối ưu hóa quy trình làm việc, nâng cao chất lượng dịch vụ y tế
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle benefit-icon"></i>
+                        <h4 class="benefit-title">Giảm Thiểu Sai Sót</h4>
+                        <p class="feature-text">
+                            Giảm 95% sai sót trong hồ sơ điện tử, hạn chế tối đa việc bị xuất toán BHYT
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="benefit-item">
+                        <i class="fas fa-clock benefit-icon"></i>
+                        <h4 class="benefit-title">Tiết Kiệm Thời Gian</h4>
+                        <p class="feature-text">
+                            Tăng 70% hiệu suất làm việc, giảm thời gian kiểm tra thủ công từ giờ xuống phút
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="benefit-item">
+                        <i class="fas fa-dollar-sign benefit-icon"></i>
+                        <h4 class="benefit-title">Tiết Kiệm Chi Phí</h4>
+                        <p class="feature-text">
+                            Giảm chi phí vận hành, tránh tổn thất tài chính do xuất toán không hợp lệ
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="benefit-item">
+                        <i class="fas fa-users benefit-icon"></i>
+                        <h4 class="benefit-title">Nâng Cao Chất Lượng</h4>
+                        <p class="feature-text">
+                            Cải thiện chất lượng dịch vụ, tăng sự hài lòng của bệnh nhân và cán bộ y tế
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="benefit-item">
+                        <i class="fas fa-chart-bar benefit-icon"></i>
+                        <h4 class="benefit-title">Quản Lý Hiệu Quả</h4>
+                        <p class="feature-text">
+                            Báo cáo thống kê chi tiết giúp lãnh đạo đưa ra quyết định chính xác, kịp thời
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="benefit-item">
+                        <i class="fas fa-graduation-cap benefit-icon"></i>
+                        <h4 class="benefit-title">Đào Tạo Dễ Dàng</h4>
+                        <p class="feature-text">
+                            Giao diện thân thiện, dễ sử dụng, giảm thời gian đào tạo nhân viên
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="section-dark">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stats-card">
+                        <div class="stats-number">500+</div>
+                        <div class="stats-label">Cơ sở y tế tin dùng</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stats-card">
+                        <div class="stats-number">95%</div>
+                        <div class="stats-label">Giảm sai sót</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stats-card">
+                        <div class="stats-number">5M+</div>
+                        <div class="stats-label">Hồ sơ đã xử lý</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="stats-card">
+                        <div class="stats-number">24/7</div>
+                        <div class="stats-label">Hỗ trợ kỹ thuật</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-darker">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <div class="contact-card">
+                        <h2 class="section-title">Liên Hệ Với Chúng Tôi</h2>
+                        <p class="section-subtitle">
+                            Đăng ký dùng thử miễn phí hoặc liên hệ để được tư vấn chi tiết
+                        </p>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-user"></i>
+                                <span><strong>Lê Quốc Thái</strong> - Nhà phát triển</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:lequocthai@example.com">lequocthai@example.com</a>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <a href="tel:0909123456">09xx.xxx.xxx</a>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Cao Lãnh, Đồng Tháp, Việt Nam</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-hero mt-4">
+                            <i class="fas fa-paper-plane me-2"></i>Đăng ký dùng thử miễn phí
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="mb-2">© 2025 XML Checker - Lê Quốc Thái</p>
+            <p class="mb-0">Giải pháp số chuyên nghiệp cho ngành y tế Việt Nam</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to top button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
     </div>
-    <h1>Phần mềm kiểm tra & sửa lỗi XML</h1>
-    <p>
-      Giải pháp thông minh giúp các cơ sở y tế tự động phát hiện, phân tích và khắc phục lỗi dữ liệu 
-      trong hồ sơ khám chữa bệnh điện tử.  
-      Hỗ trợ nâng cao hiệu quả giám định BHYT, giảm thiểu xuất toán và tiết kiệm chi phí.
-    </p>
-    <a href="#about" class="btn">Khám phá ngay</a>
-  </div>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <h2>Giới thiệu</h2>
-    <p>
-      Phần mềm ra đời từ nhu cầu thực tiễn: giảm sai sót dữ liệu, hỗ trợ cán bộ y tế trong công tác kiểm tra,
-      giám định và chuẩn hóa hồ sơ khám chữa bệnh điện tử.  
-    </p>
-  </section>
-
-  <!-- FEATURES -->
-  <section id="features">
-    <h2>Tính năng nổi bật</h2>
-    <p>✔ Kiểm tra & sửa lỗi XML nhanh chóng, chính xác.</p>
-    <p>✔ Tích hợp AI phân tích hồ sơ chuyên sâu.</p>
-    <p>✔ Xuất báo cáo trực quan, hỗ trợ cán bộ quản lý.</p>
-    <p>✔ Kết nối Telegram để nhận thông tin bảo mật, tiện lợi.</p>
-  </section>
-
-  <!-- EFFECTIVENESS -->
-  <section id="effect">
-    <h2>Hiệu quả mang lại</h2>
-    <p>✅ Giảm sai sót hồ sơ, hạn chế bị xuất toán BHYT.</p>
-    <p>✅ Tăng hiệu quả làm việc của cán bộ y tế.</p>
-    <p>✅ Tiết kiệm chi phí vận hành, đồng hành cùng quá trình chuyển đổi số.</p>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2>Liên hệ</h2>
-    <p>
-      Người phát triển: <strong>Lê Quốc Thái</strong><br>
-      Email: <a href="mailto:yourmail@example.com" style="color:#00eaff">yourmail@example.com</a><br>
-      Điện thoại: 09xx.xxx.xxx
-    </p>
-  </section>
-
-  <footer>
-    © 2025 - Lê Quốc Thái | Giải pháp số cho ngành y tế
-  </footer>
-</body>
-</html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.
