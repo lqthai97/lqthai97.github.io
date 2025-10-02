@@ -409,6 +409,57 @@
                 font-size: 1.8rem;
             }
         }
+        #support .container {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+/* Tùy chỉnh lại vị trí và kiểu dáng của 2 nút điều khiển */
+#support .carousel-control-prev,
+#support .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 234, 255, 0.2);
+    border-radius: 50%;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+#support .carousel-control-prev:hover,
+#support .carousel-control-next:hover {
+    opacity: 1;
+    background-color: rgba(0, 234, 255, 0.4);
+}
+
+/* Di chuyển nút ra xa hơn */
+#support .carousel-control-prev {
+    left: -25px;
+}
+
+#support .carousel-control-next {
+    right: -25px;
+}
+
+/* Bỏ đi background mặc định trên icon để nút tròn đẹp hơn */
+#support .carousel-control-prev-icon,
+#support .carousel-control-next-icon {
+    background-color: transparent;
+    padding: 0;
+}
+
+/* Điều chỉnh cho màn hình nhỏ (mobile) */
+@media (max-width: 768px) {
+    #support .carousel-control-prev {
+        left: -10px;
+    }
+
+    #support .carousel-control-next {
+        right: -10px;
+    }
+}
+
 
        /* ---- CSS MỚI CHO TEAM HỖ TRỢ ---- */
 .team-member {
@@ -453,6 +504,64 @@
     background-color: rgba(0, 188, 212, 0.5);
     border-radius: 50%;
     padding: 20px;
+}
+        /* ---- CSS MỚI - PHIÊN BẢN HOÀN CHỈNH CHO TEAM HỖ TRỢ ---- */
+
+/* Thiết lập chiều cao tối thiểu và căn giữa nội dung theo chiều dọc */
+#support {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 70vh; /* Chiếm ít nhất 70% chiều cao màn hình */
+    padding: 40px 0; /* Giữ lại một chút padding */
+}
+
+/* Tùy chỉnh lại vị trí và kiểu dáng của 2 nút điều khiển */
+#support .carousel-control-prev,
+#support .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 234, 255, 0.2);
+    border-radius: 50%;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+#support .carousel-control-prev:hover,
+#support .carousel-control-next:hover {
+    opacity: 1;
+    background-color: rgba(0, 234, 255, 0.4);
+}
+
+/* Di chuyển nút ra xa hơn */
+#support .carousel-control-prev {
+    left: -25px;
+}
+
+#support .carousel-control-next {
+    right: -25px;
+}
+
+/* Bỏ đi background mặc định trên icon để nút tròn đẹp hơn */
+#support .carousel-control-prev-icon,
+#support .carousel-control-next-icon {
+    background-color: transparent;
+    padding: 0;
+}
+
+/* Điều chỉnh cho màn hình nhỏ (mobile) */
+@media (max-width: 768px) {
+    #support {
+        min-height: 50vh; /* Giảm chiều cao trên mobile cho hợp lý */
+    }
+    #support .carousel-control-prev {
+        left: -10px;
+    }
+    #support .carousel-control-next {
+        right: -10px;
+    }
 }
 /* ---- HẾT CSS MỚI ---- */
     </style>
