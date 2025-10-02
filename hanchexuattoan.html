@@ -409,6 +409,53 @@
                 font-size: 1.8rem;
             }
         }
+
+        /* ---- CSS MỚI CHO TEAM HỖ TRỢ ---- */
+.team-member {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 15px; /* Thêm khoảng đệm để bóng không bị che */
+}
+
+.team-member img {
+    width: 120px;
+    height: 120px;
+    /* Đổi từ hình tròn sang bo góc */
+    border-radius: 24px; 
+    object-fit: cover;
+    border: 4px solid rgba(0, 234, 255, 0.3);
+    transition: all 0.3s ease;
+    /* Hiệu ứng ban đầu: ảnh hơi xám nhẹ */
+    filter: grayscale(40%);
+}
+
+.team-member img:hover {
+    /* Hiệu ứng khi di chuột vào */
+    transform: translateY(-10px) scale(1.1); /* Hơi nhấc lên và phóng to */
+    border-color: var(--accent-color);
+    filter: grayscale(0%); /* Trả lại màu đầy đủ */
+    box-shadow: 0 10px 30px rgba(0, 234, 255, 0.5); /* Đổ bóng phát sáng */
+}
+
+.team-member h5 {
+    margin-top: 15px;
+    font-weight: 600;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.team-member:hover h5 {
+    /* Đổi màu tên khi di chuột vào cả khối */
+    color: var(--accent-color);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 188, 212, 0.5);
+    border-radius: 50%;
+    padding: 20px;
+}
+/* ---- HẾT CSS MỚI ---- */
     </style>
 </head>
 <body>
@@ -659,73 +706,30 @@
             </div>
             
             <div id="teamCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row">
-                            <div class="col-md-3 col-6">
-                                <div class="team-member">
-                                    <img src="https://i.pravatar.cc/150?img=1" alt="Thành viên 1">
-                                    <h5>Nguyễn Văn A</h5>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="team-member">
-                                    <img src="https://i.pravatar.cc/150?img=2" alt="Thành viên 2">
-                                    <h5>Trần Thị B</h5>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="team-member">
-                                    <img src="https://i.pravatar.cc/150?img=3" alt="Thành viên 3">
-                                    <h5>Lê Văn C</h5>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="team-member">
-                                    <img src="https://i.pravatar.cc/150?img=4" alt="Thành viên 4">
-                                    <h5>Phạm Thị D</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3 col-6">
-                                <div class="team-member">
-                                    <img src="https://i.pravatar.cc/150?img=5" alt="Thành viên 5">
-                                    <h5>Võ Văn E</h5>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="team-member">
-                                    <img src="https://i.pravatar.cc/150?img=6" alt="Thành viên 6">
-                                    <h5>Đặng Thị F</h5>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="team-member">
-                                    <img src="https://i.pravatar.cc/150?img=7" alt="Thành viên 7">
-                                    <h5>Hoàng Văn G</h5>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="team-member">
-                                    <img src="https://i.pravatar.cc/150?img=8" alt="Thành viên 8">
-                                    <h5>Ngô Thị H</h5>
-                                </div>
-                            </div>
-                        </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="team-member">
+                        <img src="https://raw.githubusercontent.com/lqthai97/lqthai97.github.io/refs/heads/main/anhkhoa.jpg" alt="Anh Khoa">
+                        <h5>Anh Khoa</h5>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                
+
+                
             </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
         </div>
     </section>
 
