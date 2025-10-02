@@ -300,26 +300,7 @@
             color: var(--light-text);
             font-weight: 500;
         }
-        
-        /* Screenshot Gallery */
-        .screenshot-item {
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-        }
-        
-        .screenshot-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0, 234, 255, 0.4);
-        }
-        
-        .screenshot-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
+
         /* Contact Section */
         .contact-card {
             background: rgba(255, 255, 255, 0.05);
@@ -357,7 +338,82 @@
         .contact-item a:hover {
             color: var(--accent-color);
         }
-        
+
+        /* === CSS CHO TEAM HỖ TRỢ (ĐÃ GỘP VÀ SỬA LỖI) === */
+        #support {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 60vh; 
+            padding: 40px 0;
+        }
+
+        .team-member {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-top: 15px;
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(0, 234, 255, 0.3);
+            transition: all 0.3s ease;
+            filter: grayscale(40%);
+        }
+
+        .team-member img:hover {
+            transform: translateY(-10px) scale(1.1);
+            border-color: var(--accent-color);
+            filter: grayscale(0%);
+            box-shadow: 0 10px 30px rgba(0, 234, 255, 0.5);
+        }
+
+        .team-member h5 {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+
+        .team-member:hover h5 {
+            color: var(--accent-color);
+        }
+
+        #support .carousel-control-prev,
+        #support .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 234, 255, 0.2);
+            border-radius: 50%;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        #support .carousel-control-prev:hover,
+        #support .carousel-control-next:hover {
+            opacity: 1;
+            background-color: rgba(0, 234, 255, 0.4);
+        }
+
+        #support .carousel-control-prev {
+            left: -25px;
+        }
+
+        #support .carousel-control-next {
+            right: -25px;
+        }
+
+        #support .carousel-control-prev-icon,
+        #support .carousel-control-next-icon {
+            background-color: transparent;
+            padding: 0;
+        }
+
         /* Footer */
         footer {
             background: var(--darker-bg);
@@ -408,127 +464,25 @@
             .section-title {
                 font-size: 1.8rem;
             }
+
+            .stats-number {
+                font-size: 2.2rem;
+            }
+
+            .stats-card {
+                padding: 20px 10px;
+            }
+
+            #support {
+                min-height: 45vh;
+            }
+            #support .carousel-control-prev {
+                left: -10px;
+            }
+            #support .carousel-control-next {
+                right: -10px;
+            }
         }
-        #support .container {
-    padding-top: 20px;
-    padding-bottom: 40px;
-}
-
-/* Tùy chỉnh lại vị trí và kiểu dáng của 2 nút điều khiển */
-#support .carousel-control-prev,
-#support .carousel-control-next {
-    width: 50px;
-    height: 50px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 234, 255, 0.2);
-    border-radius: 50%;
-    opacity: 0.7;
-    transition: all 0.3s ease;
-}
-       /* ---- CSS MỚI CHO TEAM HỖ TRỢ ---- */
-.team-member {
-    text-align: center;
-    margin-bottom: 20px;
-    padding-top: 15px; /* Thêm khoảng đệm để bóng không bị che */
-}
-
-.team-member img {
-    /* Phóng to avatar và bo tròn */
-    width: 150px;
-    height: 150px;
-    border-radius: 50%; /* Trở lại thành hình tròn */
-    object-fit: cover;
-    border: 4px solid rgba(0, 234, 255, 0.3);
-    transition: all 0.3s ease;
-    filter: grayscale(40%);
-}
-
-.team-member img:hover {
-    /* Hiệu ứng khi di chuột vào */
-    transform: translateY(-10px) scale(1.1); /* Hơi nhấc lên và phóng to */
-    border-color: var(--accent-color);
-    filter: grayscale(0%); /* Trả lại màu đầy đủ */
-    box-shadow: 0 10px 30px rgba(0, 234, 255, 0.5); /* Đổ bóng phát sáng */
-}
-
-.team-member h5 {
-    margin-top: 15px;
-    font-weight: 600;
-    color: #fff;
-    transition: color 0.3s ease;
-}
-
-.team-member:hover h5 {
-    /* Đổi màu tên khi di chuột vào cả khối */
-    color: var(--accent-color);
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: rgba(0, 188, 212, 0.5);
-    border-radius: 50%;
-    padding: 20px;
-}
-        /* ---- CSS MỚI - PHIÊN BẢN HOÀN CHỈNH CHO TEAM HỖ TRỢ ---- */
-
-/* Thiết lập chiều cao tối thiểu và căn giữa nội dung theo chiều dọc */
-#support {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 50vh; /* Chiếm ít nhất 70% chiều cao màn hình */
-    padding: 40px 0; /* Giữ lại một chút padding */
-}
-
-/* Tùy chỉnh lại vị trí và kiểu dáng của 2 nút điều khiển */
-#support .carousel-control-prev,
-#support .carousel-control-next {
-    width: 50px;
-    height: 50px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 234, 255, 0.2);
-    border-radius: 50%;
-    opacity: 0.7;
-    transition: all 0.3s ease;
-}
-
-#support .carousel-control-prev:hover,
-#support .carousel-control-next:hover {
-    opacity: 1;
-    background-color: rgba(0, 234, 255, 0.4);
-}
-
-/* Di chuyển nút ra xa hơn */
-#support .carousel-control-prev {
-    left: -25px;
-}
-
-#support .carousel-control-next {
-    right: -25px;
-}
-
-/* Bỏ đi background mặc định trên icon để nút tròn đẹp hơn */
-#support .carousel-control-prev-icon,
-#support .carousel-control-next-icon {
-    background-color: transparent;
-    padding: 0;
-}
-
-/* Điều chỉnh cho màn hình nhỏ (mobile) */
-@media (max-width: 768px) {
-    #support {
-        min-height: 40vh; /* Giảm chiều cao trên mobile cho hợp lý */
-    }
-    #support .carousel-control-prev {
-        left: -10px;
-    }
-    #support .carousel-control-next {
-        right: -10px;
-    }
-}
-/* ---- HẾT CSS MỚI ---- */
     </style>
 </head>
 <body>
@@ -740,7 +694,9 @@
     <section id="stats" class="section-dark">
         <div class="container">
             <div class="row text-center">
-                <h2 class="section-title">Thống kê</h2>
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <h2 class="section-title">Thống kê</h2>
+                </div>
                 <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="100">
                     <div class="stats-card">
                         <div class="stats-number">150+</div>
@@ -778,26 +734,44 @@
                 </p>
             </div>
             
-           <div class="carousel-item active">
-                <div class="row justify-content-center">
-                    <div class="col-md-3 col-6">
-                        <div class="team-member">
-                <img src="https://raw.githubusercontent.com/lqthai97/lqthai97.github.io/refs/heads/main/anhkhoa.jpg" alt="Anh Khoa">
-                <h5>Anh Khoa</h5>
+            <div id="teamCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-center">
+                            <div class="col-md-3 col-6">
+                                <div class="team-member">
+                                    <img src="https://raw.githubusercontent.com/lqthai97/lqthai97.github.io/refs/heads/main/anhkhoa.jpg" alt="Anh Khoa">
+                                    <h5>Anh Khoa</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-md-3 col-6">
+                                <div class="team-member">
+                                    <img src="https://i.pravatar.cc/150?img=5" alt="Thành viên 5">
+                                    <h5>Võ Văn E</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="team-member">
+                                    <img src="https://i.pravatar.cc/150?img=6" alt="Thành viên 6">
+                                    <h5>Đặng Thị F</h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
         </div>
     </section>
 
@@ -808,7 +782,7 @@
                     <div class="contact-card">
                         <h2 class="section-title">Liên Hệ</h2>
                         <p class="section-subtitle">
-                            Đăng ký dùng miễn phí hoặc liên hệ để được tư vấn chi tiết
+                            Tham gia cộng đồng hoặc liên hệ trực tiếp để được tư vấn chi tiết
                         </p>
                         <div class="contact-info">
                             <div class="contact-item">
@@ -821,16 +795,16 @@
                             </div>
                             <div class="contact-item">
                                 <i class="fas fa-phone"></i>
-                                <a href="tel:0984.998.513">0984.998.513</a>
+                                <a href="tel:0984998513">0984.998.513</a>
                             </div>
                             <div class="contact-item">
                                 <i class="fas fa-map-marker-alt"></i>
-                                <span>P. Cao Lãnh, Đồng Tháp</span>
+                                <span>Cao Lãnh, Đồng Tháp</span>
                             </div>
                         </div>
                        <a href="https://zalo.me/g/smpwct852" class="btn-hero mt-4">
-     <i class="fas fa-paper-plane me-2"></i>Tham gia group Zalo trao đổi
- </a>
+                            <i class="fas fa-users me-2"></i>Tham gia Group Zalo
+                       </a>
                     </div>
                 </div>
             </div>
@@ -839,7 +813,7 @@
 
     <footer>
         <div class="container">
-            <p class="mb-2">© 2024 LQT HCXT - Phát triển bởi Lê Quốc Thái</p>
+            <p class="mb-2">© 2025 LQT HCXT - Phát triển bởi Lê Quốc Thái</p>
             <p class="mb-0">Giải pháp là sự chia sẻ tri thức, góp phần lan tỏa giá trị thiết thực vì cộng đồng. KHÔNG VÌ MỤC ĐÍCH THƯƠNG MẠI.</p>
         </div>
     </footer>
@@ -870,3 +844,4 @@
     </script>
 </body>
 </html>
+hãy sửa lại năm ở footer là năm hiện tại, và đổi chữ ký thành: © LQT HCXT - Phát triển bởi Lê Quốc Thái. All Rights Reserved.
