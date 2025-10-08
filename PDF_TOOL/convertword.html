@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -108,10 +107,8 @@
         let selectedFile = null;
         let generatedDocBlob = null;
         
-        // Thiết lập worker cho pdf.js
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
-        // Xử lý việc chọn file
         uploadContainer.addEventListener('click', () => pdfInput.click());
         pdfInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
@@ -122,7 +119,6 @@
             }
         });
 
-        // Xử lý kéo thả file
         uploadContainer.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadContainer.classList.add('border-blue-500', 'bg-gray-50');
@@ -142,7 +138,6 @@
             }
         });
 
-        // Hàm xử lý khi file đã được chọn
         function handleFileSelect(file) {
             selectedFile = file;
             fileNameEl.textContent = file.name;
@@ -154,7 +149,6 @@
             hideError();
         }
 
-        // Bắt đầu chuyển đổi
         convertBtn.addEventListener('click', async () => {
             if (!selectedFile) return;
 
@@ -184,14 +178,19 @@
                         const pageText = textContent.items.map(item => item.str).join(' ');
                         allText += pageText + '\n\n';
                         
-                        // Cập nhật thanh tiến trình
                         const progress = Math.round((i / numPages) * 100);
                         progressBar.style.width = `${progress}%`;
                         progressText.textContent = `Đang trích xuất văn bản... (${i}/${numPages} trang)`;
                     }
 
-                    progressText.textContent = "Đang tạo file Word...";
-                    createWordDocument(allText);
+                    // --- THAY ĐỔI 1: Cập nhật giao diện ngay lập tức ---
+                    progressText.textContent = "Hoàn tất trích xuất. Đang tạo file Word...";
+                    // Đặt thanh tiến trình về trạng thái chờ
+                    progressBar.style.width = '100%';
+                    progressBar.classList.add('animate-pulse'); // Thêm hiệu ứng pulse
+                    
+                    // Gọi hàm tạo file Word và chờ nó hoàn thành
+                    await createWordDocument(allText);
                 };
 
                 fileReader.onerror = () => {
@@ -206,12 +205,12 @@
             }
         });
 
-        // Hàm tạo file Word
-        function createWordDocument(text) {
+        // --- THAY ĐỔI 2: Chuyển hàm thành async/await ---
+        async function createWordDocument(text) {
             const paragraphs = text.split('\n').map(p => new docx.Paragraph({
                 children: [new docx.TextRun(p)],
                 spacing: {
-                    after: 200 // Thêm khoảng cách sau mỗi đoạn
+                    after: 200
                 }
             }));
 
@@ -222,15 +221,17 @@
                 }],
             });
 
-            docx.Packer.toBlob(doc).then(blob => {
-                generatedDocBlob = blob;
-                progressArea.classList.add('hidden');
-                downloadBtn.classList.remove('hidden');
-                resetBtn.classList.remove('hidden');
-            });
+            // Chờ cho đến khi file được tạo xong
+            const blob = await docx.Packer.toBlob(doc);
+            generatedDocBlob = blob;
+            
+            // Cập nhật giao diện sau khi đã có kết quả
+            progressArea.classList.add('hidden');
+            progressBar.classList.remove('animate-pulse');
+            downloadBtn.classList.remove('hidden');
+            resetBtn.classList.remove('hidden');
         }
         
-        // Tải file về
         downloadBtn.addEventListener('click', () => {
             if (!generatedDocBlob) return;
             const link = document.createElement('a');
@@ -242,13 +243,12 @@
             document.body.removeChild(link);
         });
 
-        // Reset giao diện
         resetBtn.addEventListener('click', resetUI);
 
         function resetUI() {
             selectedFile = null;
             generatedDocBlob = null;
-            pdfInput.value = ''; // Reset input file
+            pdfInput.value = ''; 
             
             uploadContainer.classList.remove('hidden');
             processingContainer.classList.add('hidden');
