@@ -164,33 +164,38 @@
                 fileReader.readAsArrayBuffer(selectedFile);
 
                 fileReader.onload = async (event) => {
-                    const pdfData = new Uint8Array(event.target.result);
-                    const pdfDoc = await pdfjsLib.getDocument({ data: pdfData }).promise;
-                    
-                    const numPages = pdfDoc.numPages;
-                    let allText = '';
-
-                    progressText.textContent = `Đang trích xuất văn bản... (0/${numPages} trang)`;
-
-                    for (let i = 1; i <= numPages; i++) {
-                        const page = await pdfDoc.getPage(i);
-                        const textContent = await page.getTextContent();
-                        const pageText = textContent.items.map(item => item.str).join(' ');
-                        allText += pageText + '\n\n';
+                    // --- THAY ĐỔI 1: Thêm try...catch bao bọc toàn bộ quá trình xử lý ---
+                    try {
+                        const pdfData = new Uint8Array(event.target.result);
+                        const pdfDoc = await pdfjsLib.getDocument({ data: pdfData }).promise;
                         
-                        const progress = Math.round((i / numPages) * 100);
-                        progressBar.style.width = `${progress}%`;
-                        progressText.textContent = `Đang trích xuất văn bản... (${i}/${numPages} trang)`;
-                    }
+                        const numPages = pdfDoc.numPages;
+                        let allText = '';
 
-                    // --- THAY ĐỔI 1: Cập nhật giao diện ngay lập tức ---
-                    progressText.textContent = "Hoàn tất trích xuất. Đang tạo file Word...";
-                    // Đặt thanh tiến trình về trạng thái chờ
-                    progressBar.style.width = '100%';
-                    progressBar.classList.add('animate-pulse'); // Thêm hiệu ứng pulse
-                    
-                    // Gọi hàm tạo file Word và chờ nó hoàn thành
-                    await createWordDocument(allText);
+                        progressText.textContent = `Đang trích xuất văn bản... (0/${numPages} trang)`;
+
+                        for (let i = 1; i <= numPages; i++) {
+                            const page = await pdfDoc.getPage(i);
+                            const textContent = await page.getTextContent();
+                            const pageText = textContent.items.map(item => item.str).join(' ');
+                            allText += pageText + '\n\n';
+                            
+                            const progress = Math.round((i / numPages) * 100);
+                            progressBar.style.width = `${progress}%`;
+                            progressText.textContent = `Đang trích xuất văn bản... (${i}/${numPages} trang)`;
+                        }
+
+                        progressText.textContent = "Hoàn tất trích xuất. Đang tạo file Word...";
+                        progressBar.style.width = '100%';
+                        progressBar.classList.add('animate-pulse');
+                        
+                        await createWordDocument(allText);
+
+                    } catch (error) {
+                        console.error("Lỗi trong quá trình đọc PDF hoặc tạo Word: ", error);
+                        showError("Không thể xử lý file PDF này. File có thể bị lỗi hoặc quá phức tạp.");
+                        resetUI(); // Reset giao diện nếu có lỗi
+                    }
                 };
 
                 fileReader.onerror = () => {
@@ -205,31 +210,35 @@
             }
         });
 
-        // --- THAY ĐỔI 2: Chuyển hàm thành async/await ---
         async function createWordDocument(text) {
-            const paragraphs = text.split('\n').map(p => new docx.Paragraph({
-                children: [new docx.TextRun(p)],
-                spacing: {
-                    after: 200
-                }
-            }));
+             // --- THAY ĐỔI 2: Thêm try...catch để bắt lỗi từ thư viện docx ---
+            try {
+                const paragraphs = text.split('\n').map(p => new docx.Paragraph({
+                    children: [new docx.TextRun(p)],
+                    spacing: {
+                        after: 200
+                    }
+                }));
 
-            const doc = new docx.Document({
-                sections: [{
-                    properties: {},
-                    children: paragraphs,
-                }],
-            });
+                const doc = new docx.Document({
+                    sections: [{
+                        properties: {},
+                        children: paragraphs,
+                    }],
+                });
 
-            // Chờ cho đến khi file được tạo xong
-            const blob = await docx.Packer.toBlob(doc);
-            generatedDocBlob = blob;
-            
-            // Cập nhật giao diện sau khi đã có kết quả
-            progressArea.classList.add('hidden');
-            progressBar.classList.remove('animate-pulse');
-            downloadBtn.classList.remove('hidden');
-            resetBtn.classList.remove('hidden');
+                const blob = await docx.Packer.toBlob(doc);
+                generatedDocBlob = blob;
+                
+                progressArea.classList.add('hidden');
+                progressBar.classList.remove('animate-pulse');
+                downloadBtn.classList.remove('hidden');
+                resetBtn.classList.remove('hidden');
+            } catch (error) {
+                console.error("Lỗi khi tạo file DOCX: ", error);
+                showError("Không thể tạo file Word từ nội dung đã trích xuất.");
+                resetUI();
+            }
         }
         
         downloadBtn.addEventListener('click', () => {
@@ -257,12 +266,17 @@
             convertBtn.classList.remove('hidden');
             progressArea.classList.add('hidden');
             progressBar.style.width = '0%';
+            progressBar.classList.remove('animate-pulse'); // Dọn dẹp hiệu ứng
             hideError();
         }
 
         function showError(message) {
             errorMessage.textContent = message;
             errorAlert.classList.remove('hidden');
+            // Ẩn các nút không cần thiết khi có lỗi
+            progressArea.classList.add('hidden');
+            convertBtn.classList.add('hidden');
+            resetBtn.classList.remove('hidden');
         }
 
         function hideError() {
