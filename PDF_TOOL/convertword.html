@@ -10,7 +10,7 @@
     <!-- Thư viện để đọc PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     
-    <!-- THAY ĐỔI 1: Sử dụng đúng phiên bản thư viện DOCX cho trình duyệt -->
+    <!-- Sử dụng đúng phiên bản thư viện DOCX cho trình duyệt -->
     <script src="https://unpkg.com/docx/dist/docx.js"></script>
 
     <style>
@@ -109,127 +109,112 @@
         
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
+        // --- Event Listeners ---
         uploadContainer.addEventListener('click', () => pdfInput.click());
-        pdfInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file && file.type === 'application/pdf') {
-                handleFileSelect(file);
-            } else {
-                showError("Vui lòng chỉ chọn file PDF.");
-            }
-        });
+        pdfInput.addEventListener('change', (e) => handleFileSelect(e.target.files[0]));
 
-        uploadContainer.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadContainer.classList.add('border-blue-500', 'bg-gray-50');
+        ['dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadContainer.addEventListener(eventName, preventDefaults, false);
         });
-        uploadContainer.addEventListener('dragleave', (e) => {
+        function preventDefaults(e) {
             e.preventDefault();
-            uploadContainer.classList.remove('border-blue-500', 'bg-gray-50');
+            e.stopPropagation();
+        }
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadContainer.addEventListener(eventName, () => uploadContainer.classList.add('border-blue-500', 'bg-gray-50'), false);
         });
-        uploadContainer.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadContainer.classList.remove('border-blue-500', 'bg-gray-50');
-            const file = e.dataTransfer.files[0];
-            if (file && file.type === 'application/pdf') {
-                handleFileSelect(file);
-            } else {
-                showError("Vui lòng chỉ chọn file PDF.");
-            }
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadContainer.addEventListener(eventName, () => uploadContainer.classList.remove('border-blue-500', 'bg-gray-50'), false);
         });
+        uploadContainer.addEventListener('drop', (e) => handleFileSelect(e.dataTransfer.files[0]), false);
 
+        convertBtn.addEventListener('click', convertPdfToWord);
+        downloadBtn.addEventListener('click', downloadWordFile);
+        resetBtn.addEventListener('click', resetUI);
+
+        // --- Core Functions ---
         function handleFileSelect(file) {
-            selectedFile = file;
-            fileNameEl.textContent = file.name;
-            fileSizeEl.textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB`;
-            
-            uploadContainer.classList.add('hidden');
-            processingContainer.classList.remove('hidden');
-            resetBtn.classList.remove('hidden');
-            hideError();
+            if (file && file.type === 'application/pdf') {
+                selectedFile = file;
+                fileNameEl.textContent = file.name;
+                fileSizeEl.textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB`;
+                
+                uploadContainer.classList.add('hidden');
+                processingContainer.classList.remove('hidden');
+                resetBtn.classList.remove('hidden');
+                hideError();
+            } else {
+                showError("Vui lòng chỉ chọn file PDF.");
+            }
         }
 
-        convertBtn.addEventListener('click', async () => {
+        async function convertPdfToWord() {
             if (!selectedFile) return;
 
+            // Update UI
             convertBtn.classList.add('hidden');
             progressArea.classList.remove('hidden');
-            downloadBtn.classList.add('hidden');
             resetBtn.classList.add('hidden');
             progressBar.style.width = '0%';
             progressText.textContent = "Đang đọc file PDF...";
 
             try {
-                const fileReader = new FileReader();
-                fileReader.readAsArrayBuffer(selectedFile);
+                const arrayBuffer = await selectedFile.arrayBuffer();
+                const pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                
+                const numPages = pdfDoc.numPages;
+                let allText = '';
 
-                fileReader.onload = async (event) => {
-                    try {
-                        const pdfData = new Uint8Array(event.target.result);
-                        const pdfDoc = await pdfjsLib.getDocument({ data: pdfData }).promise;
-                        
-                        const numPages = pdfDoc.numPages;
-                        let allText = '';
+                progressText.textContent = `Đang trích xuất văn bản... (0/${numPages} trang)`;
 
-                        progressText.textContent = `Đang trích xuất văn bản... (0/${numPages} trang)`;
+                for (let i = 1; i <= numPages; i++) {
+                    const page = await pdfDoc.getPage(i);
+                    const textContent = await page.getTextContent();
+                    const pageText = textContent.items.map(item => item.str).join(' ');
+                    allText += pageText + '\n\n';
+                    
+                    const progress = Math.round((i / numPages) * 100);
+                    progressBar.style.width = `${progress}%`;
+                    progressText.textContent = `Đang trích xuất văn bản... (${i}/${numPages} trang)`;
+                }
 
-                        for (let i = 1; i <= numPages; i++) {
-                            const page = await pdfDoc.getPage(i);
-                            const textContent = await page.getTextContent();
-                            const pageText = textContent.items.map(item => item.str).join(' ');
-                            allText += pageText + '\n\n';
-                            
-                            const progress = Math.round((i / numPages) * 100);
-                            progressBar.style.width = `${progress}%`;
-                            progressText.textContent = `Đang trích xuất văn bản... (${i}/${numPages} trang)`;
-                        }
-
-                        progressText.textContent = "Hoàn tất trích xuất. Đang tạo file Word...";
-                        progressBar.style.width = '100%';
-                        progressBar.classList.add('animate-pulse');
-                        
-                        await createWordDocument(allText);
-
-                    } catch (error) {
-                        console.error("Lỗi trong quá trình đọc PDF: ", error);
-                        showError("Không thể xử lý file PDF này. File có thể bị lỗi hoặc quá phức tạp.");
-                        // THAY ĐỔI 2: Giữ nguyên giao diện và hiển thị nút reset
-                        progressArea.classList.add('hidden');
-                        resetBtn.classList.remove('hidden');
-                    }
-                };
-
-                fileReader.onerror = () => {
-                    showError("Không thể đọc file PDF.");
-                    resetUI();
-                };
+                progressText.textContent = "Hoàn tất trích xuất. Đang tạo file Word...";
+                progressBar.classList.add('animate-pulse');
+                
+                await createWordDocument(allText);
 
             } catch (error) {
-                console.error(error);
-                showError("Đã xảy ra lỗi khi xử lý file PDF.");
-                resetUI();
+                console.error("Lỗi trong quá trình xử lý PDF: ", error);
+                showError("Không thể xử lý file PDF này. File có thể bị lỗi hoặc không được hỗ trợ.");
+                progressArea.classList.add('hidden');
+                resetBtn.classList.remove('hidden');
             }
-        });
+        }
 
         async function createWordDocument(text) {
             try {
-                const paragraphs = text.split('\n').map(p => new docx.Paragraph({
+                // --- THAY ĐỔI QUAN TRỌNG: Làm sạch văn bản ---
+                // Loại bỏ các ký tự điều khiển không hợp lệ (control characters)
+                const sanitizedText = text.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+
+                const paragraphs = sanitizedText.split('\n').map(p => new docx.Paragraph({
                     children: [new docx.TextRun(p)],
-                    spacing: {
-                        after: 200
-                    }
+                    spacing: { after: 200 }
                 }));
 
                 const doc = new docx.Document({
-                    sections: [{
-                        properties: {},
-                        children: paragraphs,
-                    }],
+                    sections: [
+                        {
+                            properties: {},
+                            children: paragraphs,
+                        }
+                    ],
                 });
 
                 const blob = await docx.Packer.toBlob(doc);
                 generatedDocBlob = blob;
                 
+                // Update UI on success
                 progressArea.classList.add('hidden');
                 progressBar.classList.remove('animate-pulse');
                 downloadBtn.classList.remove('hidden');
@@ -237,14 +222,13 @@
             } catch (error) {
                 console.error("Lỗi khi tạo file DOCX: ", error);
                 showError("Không thể tạo file Word từ nội dung đã trích xuất.");
-                // THAY ĐỔI 3: Giữ nguyên giao diện và hiển thị nút reset
                 progressArea.classList.add('hidden');
                 progressBar.classList.remove('animate-pulse');
                 resetBtn.classList.remove('hidden');
             }
         }
         
-        downloadBtn.addEventListener('click', () => {
+        function downloadWordFile() {
             if (!generatedDocBlob) return;
             const link = document.createElement('a');
             link.href = URL.createObjectURL(generatedDocBlob);
@@ -253,14 +237,13 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        });
+        }
 
-        resetBtn.addEventListener('click', resetUI);
-
+        // --- UI Helper Functions ---
         function resetUI() {
             selectedFile = null;
             generatedDocBlob = null;
-            pdfInput.value = ''; 
+            pdfInput.value = '';
             
             uploadContainer.classList.remove('hidden');
             processingContainer.classList.add('hidden');
@@ -276,15 +259,11 @@
         function showError(message) {
             errorMessage.textContent = message;
             errorAlert.classList.remove('hidden');
-            progressArea.classList.add('hidden');
-            convertBtn.classList.add('hidden');
-            resetBtn.classList.remove('hidden');
         }
 
         function hideError() {
             errorAlert.classList.add('hidden');
         }
-
     </script>
 </body>
 </html>
