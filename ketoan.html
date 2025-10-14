@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Công cụ Xử lý và Thống kê Excel</title>
+    <title>Công cụ Xử lý </title>
     <!-- Tích hợp thư viện SheetJS để đọc và ghi file Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
@@ -359,9 +359,11 @@
         // Tạo các dòng dữ liệu
         data.forEach(rowData => {
             const row = document.createElement('tr');
-            Object.values(rowData).forEach(value => {
+            // *** SỬA LỖI Ở ĐÂY ***
+            // Sử dụng Object.entries để lấy cả key và value, thay vì Object.values
+            Object.entries(rowData).forEach(([key, value]) => {
                 const td = document.createElement('td');
-                // Định dạng số cho dễ đọc
+                // Định dạng số cho dễ đọc, trừ cột 'Số Lượt'
                 if (typeof value === 'number' && key !== 'Số Lượt') {
                     td.textContent = value.toLocaleString('vi-VN');
                 } else {
@@ -397,3 +399,4 @@
 </script>
 </body>
 </html>
+
