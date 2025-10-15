@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Công cụ Xử lý </title>
+    <title>Công cụ Xử lý và Thống kê Excel</title>
     <!-- Tích hợp thư viện SheetJS để đọc và ghi file Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
@@ -90,6 +90,23 @@
             margin-top: 15px;
             color: var(--secondary-color);
         }
+        
+        .sample-file-link-container {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: var(--secondary-color);
+        }
+
+        .sample-file-link-container a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .sample-file-link-container a:hover {
+            text-decoration: underline;
+        }
+
 
         #status {
             text-align: center;
@@ -203,6 +220,7 @@
             <input type="file" id="file-input" accept=".xlsx, .xls">
             <label for="file-input" class="upload-label">Chọn File Excel</label>
             <p class="upload-label-text">hoặc kéo và thả file vào đây</p>
+            <p class="sample-file-link-container"><a href="#" id="download-sample-btn">Tải file mẫu tại đây</a></p>
         </div>
 
         <div id="status"></div>
@@ -228,6 +246,7 @@
     const resultsSection = document.getElementById('results-section');
     const resultTableDiv = document.getElementById('result-table');
     const downloadBtn = document.getElementById('download-btn');
+    const downloadSampleBtn = document.getElementById('download-sample-btn');
 
     let processedData = []; // Biến toàn cục để lưu dữ liệu đã xử lý
 
@@ -269,44 +288,33 @@
                 const data = new Uint8Array(e.target.result);
                 const workbook = XLSX.read(data, { type: 'array' });
 
-                // Lấy sheet đầu tiên
                 const firstSheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[firstSheetName];
-
-                // Chuyển sheet thành dạng JSON
                 const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
                 if (jsonData.length === 0) {
                     throw new Error("File Excel không có dữ liệu.");
                 }
 
-                // Kiểm tra các cột cần thiết
                 const firstRow = jsonData[0];
                 if (!('mabenh' in firstRow && 'tongcong' in firstRow && 'bhtt' in firstRow)) {
                     throw new Error("File Excel phải chứa 3 cột: 'mabenh', 'tongcong', và 'bhtt'.");
                 }
 
-                // Bắt đầu xử lý dữ liệu
                 const summary = {};
-
                 jsonData.forEach(row => {
                     const maBenh = row.mabenh;
                     const tongCong = Number(row.tongcong) || 0;
                     const bhtt = Number(row.bhtt) || 0;
 
                     if (!summary[maBenh]) {
-                        summary[maBenh] = {
-                            so_luot: 0,
-                            tong_cong: 0,
-                            tong_bhtt: 0
-                        };
+                        summary[maBenh] = { so_luot: 0, tong_cong: 0, tong_bhtt: 0 };
                     }
                     summary[maBenh].so_luot++;
                     summary[maBenh].tong_cong += tongCong;
                     summary[maBenh].tong_bhtt += bhtt;
                 });
                 
-                // Chuyển đối tượng summary thành mảng để hiển thị và xuất file
                 processedData = Object.keys(summary).map(maBenh => ({
                     'Mã Bệnh': maBenh,
                     'Số Lượt': summary[maBenh].so_luot,
@@ -348,7 +356,6 @@
         const tbody = document.createElement('tbody');
         const headerRow = document.createElement('tr');
 
-        // Tạo header cho bảng
         Object.keys(data[0]).forEach(key => {
             const th = document.createElement('th');
             th.textContent = key;
@@ -356,14 +363,10 @@
         });
         thead.appendChild(headerRow);
 
-        // Tạo các dòng dữ liệu
         data.forEach(rowData => {
             const row = document.createElement('tr');
-            // *** SỬA LỖI Ở ĐÂY ***
-            // Sử dụng Object.entries để lấy cả key và value, thay vì Object.values
             Object.entries(rowData).forEach(([key, value]) => {
                 const td = document.createElement('td');
-                // Định dạng số cho dễ đọc, trừ cột 'Số Lượt'
                 if (typeof value === 'number' && key !== 'Số Lượt') {
                     td.textContent = value.toLocaleString('vi-VN');
                 } else {
@@ -377,23 +380,39 @@
         table.appendChild(thead);
         table.appendChild(tbody);
         
-        resultTableDiv.innerHTML = ''; // Xóa bảng cũ
+        resultTableDiv.innerHTML = '';
         resultTableDiv.appendChild(table);
     }
     
-    // Xử lý sự kiện nhấn nút tải về
+    // Xử lý sự kiện nhấn nút tải về kết quả
     downloadBtn.addEventListener('click', () => {
         if (processedData.length > 0) {
-            // Tạo một worksheet mới từ dữ liệu đã xử lý
             const newWorksheet = XLSX.utils.json_to_sheet(processedData);
-            
-            // Tạo một workbook mới
             const newWorkbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(newWorkbook, newWorksheet, 'KetQuaThongKe');
-            
-            // Xuất file Excel
             XLSX.writeFile(newWorkbook, 'thong_ke_ket_qua.xlsx');
         }
+    });
+
+    // *** THÊM MỚI: Xử lý sự kiện nhấn nút tải file mẫu ***
+    downloadSampleBtn.addEventListener('click', (event) => {
+        event.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
+        
+        const sampleData = [
+            { mabenh: 'J00', tongcong: 150000, bhtt: 120000 },
+            { mabenh: 'A09', tongcong: 250000, bhtt: 200000 },
+            { mabenh: 'J00', tongcong: 125000, bhtt: 100000 },
+            { mabenh: 'M47', tongcong: 500000, bhtt: 450000 },
+            { mabenh: 'A09', tongcong: 300000, bhtt: 240000 }
+        ];
+
+        // Tạo worksheet và workbook từ dữ liệu mẫu
+        const worksheet = XLSX.utils.json_to_sheet(sampleData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "DuLieuMau");
+        
+        // Tải file về máy người dùng
+        XLSX.writeFile(workbook, "file-mau.xlsx");
     });
 
 </script>
