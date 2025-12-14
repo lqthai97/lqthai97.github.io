@@ -3,88 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Read XML</title>
+    <title>BHYT XML Tree View (Mobile Friendly)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Font chữ dễ đọc cho dữ liệu */
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        /* Tùy chỉnh thanh cuộn */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
         
-        /* Tùy chỉnh thanh cuộn mảnh hơn */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-        /* Style cho cây thư mục (Tree View) */
+        /* Style cho thẻ details/summary */
         details > summary {
             list-style: none;
+            outline: none;
             cursor: pointer;
-            transition: color 0.15s;
-            user-select: none;
+            transition: all 0.2s;
         }
-        details > summary::-webkit-details-marker { display: none; }
-        
-        /* Mũi tên tùy chỉnh */
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
         details > summary::before {
-            content: '›';
+            content: '▶';
             display: inline-block;
-            width: 16px;
-            font-weight: bold;
-            font-size: 1.2em;
+            font-size: 0.7rem;
+            margin-right: 6px;
             transition: transform 0.2s;
-            color: #94a3b8; /* Xám nhạt */
-            margin-right: 2px;
+            color: #4F46E5; /* Indigo-600 */
         }
         details[open] > summary::before {
             transform: rotate(90deg);
-            color: #475569; /* Xám đậm hơn khi mở */
+        }
+        details[open] > summary {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #312E81; /* Indigo-900 */
         }
         
-        /* Hiệu ứng hover dòng */
-        .node-row:hover { background-color: #f8fafc; }
+        /* Hiệu ứng hover */
+        .node-item:hover { background-color: #F3F4F6; }
     </style>
 </head>
-<body class="bg-[#f3f4f6] text-slate-800 min-h-screen">
+<body class="bg-gray-100 min-h-screen font-sans text-gray-800">
 
-    <div class="max-w-5xl mx-auto min-h-screen flex flex-col bg-white shadow-sm sm:my-6 sm:rounded-xl overflow-hidden border border-gray-200">
+    <div class="max-w-3xl mx-auto bg-white min-h-screen shadow-lg sm:rounded-lg sm:my-8 sm:min-h-0 overflow-hidden">
         
-        <div class="bg-white border-b border-gray-200 px-6 py-4 sticky top-0 z-20 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
-            <div class="flex items-center gap-3">
-                <div class="bg-slate-100 p-2 rounded-lg">
-                    <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                </div>
-                <h1 class="text-xl font-bold tracking-tight text-slate-800">Read XML</h1>
-            </div>
-
-            <div class="flex items-center gap-2">
+        <div class="bg-indigo-700 p-4 text-white sticky top-0 z-20 shadow-md">
+            <h1 class="text-lg font-bold uppercase flex items-center gap-2">
+                📱 BHYT XML VIEWER
+            </h1>
+            <p class="text-indigo-200 text-xs mt-1">Chế độ xem cây cho điện thoại</p>
+            
+            <div class="mt-4 flex gap-2">
+                <label for="xmlInput" class="flex-1 bg-white text-indigo-700 text-center font-bold py-2 px-4 rounded text-sm shadow active:bg-gray-200 cursor-pointer">
+                    📂 Mở File
+                </label>
                 <input type="file" id="xmlInput" accept=".xml" multiple class="hidden" />
                 
-                <label for="xmlInput" class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg text-sm transition shadow-sm flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                    Chọn File
-                </label>
-
-                <div class="h-6 w-px bg-gray-200 mx-1"></div>
-
-                <button onclick="toggleAll(true)" class="text-slate-600 hover:bg-slate-100 px-3 py-2 rounded-lg text-sm font-medium transition">
+                <button onclick="toggleAll(true)" class="bg-indigo-600 border border-indigo-400 text-white px-3 rounded text-sm active:bg-indigo-800">
                     Mở hết
                 </button>
-                <button onclick="toggleAll(false)" class="text-slate-600 hover:bg-slate-100 px-3 py-2 rounded-lg text-sm font-medium transition">
-                    Thu gọn
+                <button onclick="toggleAll(false)" class="bg-indigo-600 border border-indigo-400 text-white px-3 rounded text-sm active:bg-indigo-800">
+                    Đóng
                 </button>
             </div>
         </div>
 
-        <div id="treeContainer" class="flex-1 p-4 sm:p-6 overflow-y-auto bg-white">
-            <div id="placeholder" class="h-64 flex flex-col items-center justify-center text-slate-400 border-2 border-dashed border-slate-100 rounded-xl m-4">
-                <svg class="w-12 h-12 mb-3 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 2H7a2 2 0 00-2 2v15a2 2 0 002 2z"></path></svg>
-                <p class="text-sm">Chưa có dữ liệu. Vui lòng chọn file XML.</p>
+        <div id="treeContainer" class="p-2 sm:p-6 space-y-4 pb-20">
+            <div id="placeholder" class="text-center text-gray-400 py-20">
+                <p>Chưa có dữ liệu.</p>
+                <p class="text-sm">Vui lòng chọn file XML 4210/130.</p>
             </div>
-        </div>
-        
-        <div class="bg-gray-50 border-t border-gray-100 px-6 py-2 text-xs text-slate-400 flex justify-between">
-            <span id="fileCount">0 files loaded</span>
-            <span>Unicode UTF-8 Mode</span>
         </div>
     </div>
 
@@ -97,15 +84,13 @@
 
             const container = document.getElementById('treeContainer');
             document.getElementById('placeholder')?.remove();
-            container.innerHTML = ''; 
-
-            document.getElementById('fileCount').textContent = `${files.length} files loaded`;
+            container.innerHTML = ''; // Clear cũ
 
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 await readFileAndRender(file, container);
             }
-            event.target.value = '';
+            event.target.value = ''; // Reset input
         }
 
         function readFileAndRender(file, container) {
@@ -114,33 +99,31 @@
                 reader.onload = function(e) {
                     try {
                         const xmlString = e.target.result;
-                        
-                        // Wrapper cho mỗi file: Khung viền nhẹ nhàng
+                        // Tạo khung chứa file
                         const fileWrapper = document.createElement('div');
-                        fileWrapper.className = "mb-6 last:mb-0 border border-slate-200 rounded-lg overflow-hidden";
+                        fileWrapper.className = "border border-gray-300 rounded-lg overflow-hidden mb-4 bg-white shadow-sm";
                         
-                        // Header của từng file
+                        // Header file
                         fileWrapper.innerHTML = `
-                            <div class="bg-slate-50 px-4 py-2 border-b border-slate-100 flex justify-between items-center">
-                                <div class="flex items-center gap-2 overflow-hidden">
-                                    <span class="text-lg">📄</span>
-                                    <span class="font-semibold text-slate-700 text-sm truncate" title="${file.name}">${file.name}</span>
-                                </div>
-                                <span class="text-xs text-slate-400 font-mono bg-white px-2 py-0.5 rounded border border-slate-100">${(file.size/1024).toFixed(1)} KB</span>
+                            <div class="bg-gray-100 px-4 py-2 border-b border-gray-200 flex justify-between items-center">
+                                <span class="font-bold text-gray-700 text-sm truncate w-2/3" title="${file.name}">📄 ${file.name}</span>
+                                <span class="text-xs text-gray-500">${(file.size/1024).toFixed(1)} KB</span>
                             </div>
-                            <div class="p-3 tree-root text-sm font-mono leading-relaxed text-slate-600"></div>
+                            <div class="p-2 tree-root text-sm overflow-x-hidden"></div>
                         `;
                         
                         container.appendChild(fileWrapper);
                         const treeRoot = fileWrapper.querySelector('.tree-root');
                         
+                        // Parse XML gốc
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(xmlString, "text/xml");
                         
+                        // Bắt đầu vẽ cây từ root element
                         treeRoot.appendChild(buildTree(doc.documentElement));
 
                     } catch (err) {
-                        alert(`Lỗi đọc file: ${err.message}`);
+                        alert(`Lỗi: ${err.message}`);
                     }
                     resolve();
                 };
@@ -148,60 +131,65 @@
             });
         }
 
-        // --- CORE LOGIC VẼ CÂY ---
+        // --- HÀM ĐỆ QUY VẼ CÂY (CORE LOGIC) ---
         function buildTree(node) {
-            // 1. Nếu là Text (Giá trị)
+            // 1. Nếu là Text Node (Chứa giá trị)
             if (node.nodeType === Node.TEXT_NODE) {
                 const text = node.textContent.trim();
-                if (!text) return null;
+                if (!text) return null; // Bỏ qua khoảng trắng
                 const span = document.createElement('span');
-                span.className = "text-slate-900 break-words ml-2 font-sans"; // Font sans cho giá trị dễ đọc
+                span.className = "text-gray-900 break-words font-medium"; 
                 span.textContent = text;
                 return span;
             }
 
+            // 2. Nếu là Element Node (Thẻ)
             const tagName = node.tagName;
             
-            // --- XỬ LÝ BASE64 TỰ ĐỘNG ---
+            // --- XỬ LÝ ĐẶC BIỆT: NOIDUNGFILE (BASE64) ---
             if (tagName === 'NOIDUNGFILE') {
                 const base64Content = node.textContent.trim();
+                // Thử giải mã
                 const decodedXML = decodeBase64UTF8(base64Content);
                 
                 if (decodedXML) {
+                    // Nếu giải mã thành công, Parse nó thành DOM mới
                     const parser = new DOMParser();
                     const innerDoc = parser.parseFromString(decodedXML, "text/xml");
                     
-                    // Tạo node đặc biệt màu xanh lá nhẹ để báo hiệu đã giải mã
-                    const details = createDetailsNode("Nội dung đã giải mã", "text-emerald-700 font-semibold");
+                    // Tạo node cha đại diện
+                    const details = createDetailsNode("NOIDUNGFILE (Đã giải mã)", "text-green-700");
                     const contentDiv = details.querySelector('.tree-content');
+                    
+                    // Đệ quy tiếp tục với XML con vừa giải mã
                     contentDiv.appendChild(buildTree(innerDoc.documentElement));
                     return details;
                 }
             }
+            // ---------------------------------------------
 
-            // Lọc các node con hợp lệ
+            // Kiểm tra xem node có con hay chỉ có text
             const children = Array.from(node.childNodes).filter(n => 
                 n.nodeType === Node.ELEMENT_NODE || (n.nodeType === Node.TEXT_NODE && n.textContent.trim())
             );
 
-            // TRƯỜNG HỢP A: Nút lá (Key: Value)
+            // TRƯỜNG HỢP A: Nút Lá (Chỉ có Key: Value)
             if (children.length === 1 && children[0].nodeType === Node.TEXT_NODE) {
                 const div = document.createElement('div');
-                div.className = "node-row flex items-baseline py-0.5 px-2 rounded-sm";
+                div.className = "flex gap-2 py-1 border-b border-gray-50 last:border-0 node-item";
                 
                 const keySpan = document.createElement('span');
-                keySpan.className = "text-slate-400 text-xs uppercase tracking-wide select-none min-w-[120px] inline-block";
+                keySpan.className = "text-gray-500 font-normal min-w-[100px] text-xs uppercase pt-0.5";
                 keySpan.textContent = tagName;
                 
                 div.appendChild(keySpan);
-                div.appendChild(buildTree(children[0]));
+                div.appendChild(buildTree(children[0])); // Value
                 return div;
             }
 
-            // TRƯỜNG HỢP B: Nút cha (Có con)
+            // TRƯỜNG HỢP B: Nút Cha (Có con lồng nhau) - Dùng <details>
             if (children.length > 0) {
-                // Màu mặc định cho thẻ cha là xám đậm
-                const details = createDetailsNode(tagName, "text-slate-700 font-semibold");
+                const details = createDetailsNode(tagName, "text-indigo-700");
                 const contentDiv = details.querySelector('.tree-content');
                 
                 children.forEach(child => {
@@ -209,26 +197,28 @@
                     if (childView) contentDiv.appendChild(childView);
                 });
                 
-                // Tự động mở các thẻ quan trọng
+                // Mặc định mở nếu là các thẻ cấp cao quan trọng
                 if (['GIAMDINHHS', 'THONGTINHOSO', 'DANHSACHHOSO', 'HOSO', 'FILEHOSO', 'TONG_HOP', 'CHI_TIET_THUOC', 'CHI_TIET_DVKT'].includes(tagName)) {
                     details.open = true;
                 }
+
                 return details;
             }
+
             return null;
         }
 
-        function createDetailsNode(title, titleClasses) {
+        // Helper tạo giao diện thẻ đóng mở
+        function createDetailsNode(title, titleColorClass) {
             const details = document.createElement('details');
-            details.className = "group ml-1";
+            details.className = "ml-1 mb-1 group";
             
             const summary = document.createElement('summary');
-            summary.className = `text-sm py-1 px-2 rounded hover:bg-slate-100 ${titleClasses}`;
+            summary.className = `text-sm select-none py-1 px-2 rounded hover:bg-gray-100 ${titleColorClass}`;
             summary.textContent = title;
             
             const content = document.createElement('div');
-            // Đường kẻ dọc chỉ dẫn cấp độ cha con
-            content.className = "tree-content ml-2 pl-3 border-l border-slate-200 mt-1";
+            content.className = "tree-content ml-3 pl-3 border-l-2 border-indigo-100 mt-1 space-y-1";
             
             details.appendChild(summary);
             details.appendChild(content);
@@ -252,7 +242,8 @@
         }
 
         function toggleAll(open) {
-            document.querySelectorAll('details').forEach(el => el.open = open);
+            const allDetails = document.querySelectorAll('details');
+            allDetails.forEach(el => el.open = open);
         }
     </script>
 </body>
