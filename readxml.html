@@ -2,74 +2,78 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Read XML</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>XML Viewer Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Tùy chỉnh thanh cuộn */
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
         
-        /* Style cho thẻ details/summary */
         details > summary {
             list-style: none;
             outline: none;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: background 0.1s;
         }
-        details > summary::-webkit-details-marker {
-            display: none;
-        }
+        details > summary::-webkit-details-marker { display: none; }
         details > summary::before {
             content: '▶';
             display: inline-block;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             margin-right: 6px;
             transition: transform 0.2s;
-            color: #4F46E5; /* Indigo-600 */
+            color: #4F46E5;
         }
-        details[open] > summary::before {
-            transform: rotate(90deg);
-        }
+        details[open] > summary::before { transform: rotate(90deg); }
         details[open] > summary {
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #312E81; /* Indigo-900 */
+            margin-bottom: 0.25rem;
+            color: #312E81;
+            font-weight: 600;
         }
         
-        /* Hiệu ứng hover */
-        .node-item:hover { background-color: #F3F4F6; }
+        /* Hiệu ứng hover cho dòng dữ liệu */
+        .node-row:hover { background-color: #F8FAFC; }
+        
+        /* Mobile optimization for long text */
+        .break-anywhere {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen font-sans text-gray-800">
+<body class="bg-gray-50 min-h-screen font-sans text-gray-800 pb-20 sm:pb-0">
 
-    <div class="max-w-3xl mx-auto bg-white min-h-screen shadow-lg sm:rounded-lg sm:my-8 sm:min-h-0 overflow-hidden">
+    <div class="w-full md:w-11/12 lg:max-w-6xl mx-auto bg-white min-h-screen shadow-xl sm:rounded-xl sm:my-6 sm:min-h-0 overflow-hidden flex flex-col">
         
-        <div class="bg-indigo-700 p-4 text-white sticky top-0 z-20 shadow-md">
-            <h1 class="text-lg font-bold uppercase flex items-center gap-2">
-                📱 Read XML
-            </h1>
-           
-            <div class="mt-4 flex gap-2">
-                <label for="xmlInput" class="flex-1 bg-white text-indigo-700 text-center font-bold py-2 px-4 rounded text-sm shadow active:bg-gray-200 cursor-pointer">
-                    📂 Mở File
-                </label>
-                <input type="file" id="xmlInput" accept=".xml" multiple class="hidden" />
+        <div class="bg-indigo-700 p-3 sm:p-4 text-white sticky top-0 z-30 shadow-md">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
+                <h1 class="text-lg font-bold uppercase flex items-center gap-2 tracking-wide">
+                    <span>📱</span> XML Viewer <span class="text-xs font-normal bg-indigo-600 px-2 py-0.5 rounded-full hidden sm:inline-block">Lite</span>
+                </h1>
                 
-                <button onclick="toggleAll(true)" class="bg-indigo-600 border border-indigo-400 text-white px-3 rounded text-sm active:bg-indigo-800">
-                    Mở hết
-                </button>
-                <button onclick="toggleAll(false)" class="bg-indigo-600 border border-indigo-400 text-white px-3 rounded text-sm active:bg-indigo-800">
-                    Đóng
-                </button>
+                <div class="flex w-full sm:w-auto gap-2">
+                    <label for="xmlInput" class="flex-1 sm:flex-none bg-white text-indigo-700 text-center font-bold py-2 px-4 rounded shadow active:scale-95 transition-transform cursor-pointer text-sm flex items-center justify-center gap-2">
+                        <span>📂</span> Mở File
+                    </label>
+                    <input type="file" id="xmlInput" accept=".xml" multiple class="hidden" />
+                    
+                    <button onclick="toggleAll(true)" class="flex-1 sm:flex-none bg-indigo-600 hover:bg-indigo-500 border border-indigo-500 text-white px-3 py-2 rounded text-sm transition-colors">
+                        Mở hết
+                    </button>
+                    <button onclick="toggleAll(false)" class="flex-1 sm:flex-none bg-indigo-600 hover:bg-indigo-500 border border-indigo-500 text-white px-3 py-2 rounded text-sm transition-colors">
+                        Đóng
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div id="treeContainer" class="p-2 sm:p-6 space-y-4 pb-20">
-            <div id="placeholder" class="text-center text-gray-400 py-20">
-                <p>Chưa có dữ liệu.</p>
-                <p class="text-sm">Vui lòng chọn file XML</p>
+        <div id="treeContainer" class="p-2 sm:p-6 space-y-4 flex-grow overflow-y-auto">
+            <div id="placeholder" class="text-center text-gray-400 py-24 flex flex-col items-center">
+                <div class="text-6xl mb-4 opacity-20">📄</div>
+                <p class="font-medium">Chưa có dữ liệu</p>
+                <p class="text-sm mt-1">Chọn file XML (BHXH) để xem nội dung rút gọn</p>
             </div>
         </div>
     </div>
@@ -77,19 +81,29 @@
     <script>
         document.getElementById('xmlInput').addEventListener('change', handleFiles);
 
+        // DANH SÁCH CÁC TAG CẦN BỎ QUA (Chỉ lấy ruột)
+        // Bạn có thể thêm các thẻ khác vào đây nếu muốn ẩn chúng đi
+        const SKIP_TAGS = [
+            'GIAMDINHHS', 
+            'THONGTINHOSO', 
+            'DANHSACHHOSO', 
+            'HOSO', 
+            'FILEHOSO'
+        ];
+
         async function handleFiles(event) {
             const files = event.target.files;
             if (!files.length) return;
 
             const container = document.getElementById('treeContainer');
             document.getElementById('placeholder')?.remove();
-            container.innerHTML = ''; // Clear cũ
+            container.innerHTML = ''; 
 
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 await readFileAndRender(file, container);
             }
-            event.target.value = ''; // Reset input
+            event.target.value = ''; 
         }
 
         function readFileAndRender(file, container) {
@@ -98,31 +112,36 @@
                 reader.onload = function(e) {
                     try {
                         const xmlString = e.target.result;
-                        // Tạo khung chứa file
-                        const fileWrapper = document.createElement('div');
-                        fileWrapper.className = "border border-gray-300 rounded-lg overflow-hidden mb-4 bg-white shadow-sm";
                         
-                        // Header file
+                        const fileWrapper = document.createElement('div');
+                        fileWrapper.className = "border border-gray-200 rounded-lg overflow-hidden mb-4 bg-white shadow-sm ring-1 ring-gray-100";
+                        
                         fileWrapper.innerHTML = `
-                            <div class="bg-gray-100 px-4 py-2 border-b border-gray-200 flex justify-between items-center">
-                                <span class="font-bold text-gray-700 text-sm truncate w-2/3" title="${file.name}">📄 ${file.name}</span>
-                                <span class="text-xs text-gray-500">${(file.size/1024).toFixed(1)} KB</span>
+                            <div class="bg-gray-50 px-3 py-2 border-b border-gray-200 flex justify-between items-center select-none sticky top-0 z-10">
+                                <span class="font-bold text-gray-700 text-sm truncate w-3/4 flex items-center gap-2">
+                                    <span class="text-indigo-500">📄</span> ${file.name}
+                                </span>
+                                <span class="text-xs font-mono text-gray-500 bg-gray-200 px-2 py-0.5 rounded">${(file.size/1024).toFixed(1)} KB</span>
                             </div>
-                            <div class="p-2 tree-root text-sm overflow-x-hidden"></div>
+                            <div class="p-1 sm:p-2 tree-root text-sm overflow-x-auto"></div>
                         `;
                         
                         container.appendChild(fileWrapper);
                         const treeRoot = fileWrapper.querySelector('.tree-root');
                         
-                        // Parse XML gốc
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(xmlString, "text/xml");
                         
-                        // Bắt đầu vẽ cây từ root element
-                        treeRoot.appendChild(buildTree(doc.documentElement));
+                        // Render
+                        const content = buildTree(doc.documentElement);
+                        if(content) {
+                            treeRoot.appendChild(content);
+                        } else {
+                            treeRoot.innerHTML = '<div class="text-gray-400 italic p-2 text-xs">File rỗng hoặc lỗi cấu trúc</div>';
+                        }
 
                     } catch (err) {
-                        alert(`Lỗi: ${err.message}`);
+                        alert(`Lỗi đọc file ${file.name}: ${err.message}`);
                     }
                     resolve();
                 };
@@ -130,100 +149,114 @@
             });
         }
 
-        // --- HÀM ĐỆ QUY VẼ CÂY (CORE LOGIC) ---
+        // --- CORE LOGIC ĐÃ CẢI TIẾN ---
         function buildTree(node) {
-            // 1. Nếu là Text Node (Chứa giá trị)
+            // 1. Xử lý Text Node
             if (node.nodeType === Node.TEXT_NODE) {
                 const text = node.textContent.trim();
-                if (!text) return null; // Bỏ qua khoảng trắng
+                if (!text) return null;
                 const span = document.createElement('span');
-                span.className = "text-gray-900 break-words font-medium"; 
+                span.className = "text-gray-800 font-medium break-anywhere block sm:inline"; 
                 span.textContent = text;
                 return span;
             }
 
-            // 2. Nếu là Element Node (Thẻ)
             const tagName = node.tagName;
-            
-            // --- XỬ LÝ ĐẶC BIỆT: NOIDUNGFILE (BASE64) ---
+
+            // 2. LOGIC BỎ QUA NODE QUẢN LÝ (Flattening)
+            // Nếu gặp thẻ trong danh sách SKIP, ta không tạo giao diện cho nó
+            // mà đi thẳng vào xử lý các con của nó và trả về một Fragment chứa các con.
+            if (SKIP_TAGS.includes(tagName)) {
+                const children = Array.from(node.childNodes);
+                const fragment = document.createDocumentFragment();
+                let hasContent = false;
+
+                children.forEach(child => {
+                    // Đệ quy tiếp
+                    const childView = buildTree(child);
+                    if (childView) {
+                        fragment.appendChild(childView);
+                        hasContent = true;
+                    }
+                });
+
+                return hasContent ? fragment : null;
+            }
+
+            // 3. Xử lý đặc biệt: NOIDUNGFILE (Base64)
             if (tagName === 'NOIDUNGFILE') {
                 const base64Content = node.textContent.trim();
-                // Thử giải mã
                 const decodedXML = decodeBase64UTF8(base64Content);
                 
                 if (decodedXML) {
-                    // Nếu giải mã thành công, Parse nó thành DOM mới
+                    // Parse nội dung đã giải mã
                     const parser = new DOMParser();
                     const innerDoc = parser.parseFromString(decodedXML, "text/xml");
                     
-                    // Tạo node cha đại diện
-                    const details = createDetailsNode("NOIDUNGFILE (Đã giải mã)", "text-green-700");
-                    const contentDiv = details.querySelector('.tree-content');
+                    // Vì đã bỏ qua các node cha, ta coi nội dung giải mã này là trọng tâm
+                    // Tạo một div wrapper nhẹ nhàng để tách biệt
+                    const wrapper = document.createElement('div');
+                    wrapper.className = "mt-1 pl-1 sm:pl-2 border-l-2 border-green-400";
                     
-                    // Đệ quy tiếp tục với XML con vừa giải mã
-                    contentDiv.appendChild(buildTree(innerDoc.documentElement));
-                    return details;
+                    // Label nhỏ để biết đây là nội dung giải mã
+                    const label = document.createElement('div');
+                    label.className = "text-[10px] text-green-600 font-bold uppercase mb-1 tracking-wider";
+                    label.textContent = "Nội dung chi tiết (Decoded)";
+                    wrapper.appendChild(label);
+
+                    // Đệ quy vẽ nội dung bên trong
+                    wrapper.appendChild(buildTree(innerDoc.documentElement));
+                    return wrapper;
                 }
             }
-            // ---------------------------------------------
 
-            // Kiểm tra xem node có con hay chỉ có text
+            // 4. Xử lý Node thông thường (Không bị skip)
             const children = Array.from(node.childNodes).filter(n => 
                 n.nodeType === Node.ELEMENT_NODE || (n.nodeType === Node.TEXT_NODE && n.textContent.trim())
             );
 
-            // TRƯỜNG HỢP A: Nút Lá (Chỉ có Key: Value)
+            // TRƯỜNG HỢP A: Nút Lá (Key: Value)
             if (children.length === 1 && children[0].nodeType === Node.TEXT_NODE) {
                 const div = document.createElement('div');
-                div.className = "flex gap-2 py-1 border-b border-gray-50 last:border-0 node-item";
+                div.className = "flex flex-col sm:flex-row gap-0 sm:gap-2 py-1.5 border-b border-gray-100 last:border-0 node-row items-start sm:items-center";
                 
                 const keySpan = document.createElement('span');
-                keySpan.className = "text-gray-500 font-normal min-w-[100px] text-xs uppercase pt-0.5";
+                keySpan.className = "text-gray-500 font-normal min-w-[120px] text-xs uppercase tracking-tight";
                 keySpan.textContent = tagName;
                 
                 div.appendChild(keySpan);
-                div.appendChild(buildTree(children[0])); // Value
+                div.appendChild(buildTree(children[0]));
                 return div;
             }
 
-            // TRƯỜNG HỢP B: Nút Cha (Có con lồng nhau) - Dùng <details>
+            // TRƯỜNG HỢP B: Nút Cha (Container)
             if (children.length > 0) {
-                const details = createDetailsNode(tagName, "text-indigo-700");
-                const contentDiv = details.querySelector('.tree-content');
+                const details = document.createElement('details');
+                details.className = "ml-0 sm:ml-1 mb-1 group";
+                // Mặc định mở hết vì user muốn xem nội dung luôn
+                details.open = true; 
+                
+                const summary = document.createElement('summary');
+                summary.className = "text-sm py-1 px-2 rounded hover:bg-gray-100 text-indigo-700 font-semibold bg-gray-50 sm:bg-transparent";
+                summary.textContent = tagName;
+                
+                const content = document.createElement('div');
+                content.className = "ml-2 sm:ml-4 pl-2 sm:pl-3 border-l border-indigo-100 mt-1 space-y-0.5";
                 
                 children.forEach(child => {
                     const childView = buildTree(child);
-                    if (childView) contentDiv.appendChild(childView);
+                    if (childView) content.appendChild(childView);
                 });
                 
-                // Mặc định mở nếu là các thẻ cấp cao quan trọng
-                if (['GIAMDINHHS', 'THONGTINHOSO', 'DANHSACHHOSO', 'HOSO', 'FILEHOSO', 'TONG_HOP', 'CHI_TIET_THUOC', 'CHI_TIET_DVKT'].includes(tagName)) {
-                    details.open = true;
-                }
-
+                details.appendChild(summary);
+                details.appendChild(content);
                 return details;
             }
 
             return null;
         }
 
-        // Helper tạo giao diện thẻ đóng mở
-        function createDetailsNode(title, titleColorClass) {
-            const details = document.createElement('details');
-            details.className = "ml-1 mb-1 group";
-            
-            const summary = document.createElement('summary');
-            summary.className = `text-sm select-none py-1 px-2 rounded hover:bg-gray-100 ${titleColorClass}`;
-            summary.textContent = title;
-            
-            const content = document.createElement('div');
-            content.className = "tree-content ml-3 pl-3 border-l-2 border-indigo-100 mt-1 space-y-1";
-            
-            details.appendChild(summary);
-            details.appendChild(content);
-            return details;
-        }
-
+        // --- HELPER FUNCTIONS ---
         function decodeBase64UTF8(base64) {
             try {
                 if (!base64 || base64.trim().length === 0) return null;
@@ -241,8 +274,7 @@
         }
 
         function toggleAll(open) {
-            const allDetails = document.querySelectorAll('details');
-            allDetails.forEach(el => el.open = open);
+            document.querySelectorAll('details').forEach(el => el.open = open);
         }
     </script>
 </body>
