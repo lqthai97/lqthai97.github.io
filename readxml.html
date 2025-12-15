@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>XML Viewer Pro</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Tùy chỉnh thanh cuộn */
@@ -50,7 +52,9 @@
         <div class="bg-indigo-700 p-3 sm:p-4 text-white sticky top-0 z-30 shadow-md">
             <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
                 <h1 class="text-lg font-bold uppercase flex items-center gap-2 tracking-wide">
-                    <span>📱</span> XML Viewer <span class="text-xs font-normal bg-indigo-600 px-2 py-0.5 rounded-full hidden sm:inline-block">Lite</span>
+                    <img src="logo.jpg" alt="Logo" class="h-8 w-auto rounded-md shadow-sm bg-white p-0.5">
+                    
+                    XML Viewer <span class="text-xs font-normal bg-indigo-600 px-2 py-0.5 rounded-full hidden sm:inline-block">Lite</span>
                 </h1>
                 
                 <div class="flex w-full sm:w-auto gap-2">
@@ -73,7 +77,7 @@
             <div id="placeholder" class="text-center text-gray-400 py-24 flex flex-col items-center">
                 <div class="text-6xl mb-4 opacity-20">📄</div>
                 <p class="font-medium">Chưa có dữ liệu</p>
-                <p class="text-sm mt-1">Chọn file XML (BHXH) để xem nội dung rút gọn</p>
+                <p class="text-sm mt-1">Chọn file XML để xem nội dung rút gọn</p>
             </div>
         </div>
     </div>
@@ -82,7 +86,6 @@
         document.getElementById('xmlInput').addEventListener('change', handleFiles);
 
         // DANH SÁCH CÁC TAG CẦN BỎ QUA (Chỉ lấy ruột)
-        // Bạn có thể thêm các thẻ khác vào đây nếu muốn ẩn chúng đi
         const SKIP_TAGS = [
             'GIAMDINHHS', 
             'THONGTINHOSO', 
@@ -149,7 +152,7 @@
             });
         }
 
-        // --- CORE LOGIC ĐÃ CẢI TIẾN ---
+        // --- CORE LOGIC (Giữ nguyên từ phiên bản trước) ---
         function buildTree(node) {
             // 1. Xử lý Text Node
             if (node.nodeType === Node.TEXT_NODE) {
@@ -164,15 +167,12 @@
             const tagName = node.tagName;
 
             // 2. LOGIC BỎ QUA NODE QUẢN LÝ (Flattening)
-            // Nếu gặp thẻ trong danh sách SKIP, ta không tạo giao diện cho nó
-            // mà đi thẳng vào xử lý các con của nó và trả về một Fragment chứa các con.
             if (SKIP_TAGS.includes(tagName)) {
                 const children = Array.from(node.childNodes);
                 const fragment = document.createDocumentFragment();
                 let hasContent = false;
 
                 children.forEach(child => {
-                    // Đệ quy tiếp
                     const childView = buildTree(child);
                     if (childView) {
                         fragment.appendChild(childView);
@@ -189,28 +189,23 @@
                 const decodedXML = decodeBase64UTF8(base64Content);
                 
                 if (decodedXML) {
-                    // Parse nội dung đã giải mã
                     const parser = new DOMParser();
                     const innerDoc = parser.parseFromString(decodedXML, "text/xml");
                     
-                    // Vì đã bỏ qua các node cha, ta coi nội dung giải mã này là trọng tâm
-                    // Tạo một div wrapper nhẹ nhàng để tách biệt
                     const wrapper = document.createElement('div');
                     wrapper.className = "mt-1 pl-1 sm:pl-2 border-l-2 border-green-400";
                     
-                    // Label nhỏ để biết đây là nội dung giải mã
                     const label = document.createElement('div');
                     label.className = "text-[10px] text-green-600 font-bold uppercase mb-1 tracking-wider";
                     label.textContent = "Nội dung chi tiết (Decoded)";
                     wrapper.appendChild(label);
 
-                    // Đệ quy vẽ nội dung bên trong
                     wrapper.appendChild(buildTree(innerDoc.documentElement));
                     return wrapper;
                 }
             }
 
-            // 4. Xử lý Node thông thường (Không bị skip)
+            // 4. Xử lý Node thông thường
             const children = Array.from(node.childNodes).filter(n => 
                 n.nodeType === Node.ELEMENT_NODE || (n.nodeType === Node.TEXT_NODE && n.textContent.trim())
             );
@@ -233,7 +228,6 @@
             if (children.length > 0) {
                 const details = document.createElement('details');
                 details.className = "ml-0 sm:ml-1 mb-1 group";
-                // Mặc định mở hết vì user muốn xem nội dung luôn
                 details.open = true; 
                 
                 const summary = document.createElement('summary');
